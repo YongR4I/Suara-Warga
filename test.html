@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suara Warga - New Design</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+</head>
+<body class="font-sans antialiased text-[#222] bg-white overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-6 md:px-12 py-5 w-full max-w-[1600px] mx-auto bg-white">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5 z-20 group">
+            <!-- 4-point star icon mimicking Greenset logo -->
+            <svg class="w-7 h-7 text-[#222] group-hover:rotate-90 transition-transform duration-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+            <span class="font-sans font-bold text-[22px] tracking-tight text-[#222]">Suara Warga</span>
+        </a>
+
+        <!-- Nav Links -->
+        <div class="hidden lg:flex items-center gap-10 font-semibold text-[#1a1a1a] text-[15px]">
+            <a href="#" class="hover:text-gray-500 transition-colors">Home</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Laporan</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Edukasi</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Komunitas</a>
+            <a href="#" class="hover:text-gray-500 transition-colors">Dashboard</a>
+        </div>
+
+        <!-- Right Button -->
+        <a href="#" class="hidden lg:flex items-center gap-3 bg-[#d4ff1e] text-[#1a1a1a] px-1.5 py-1.5 pl-6 rounded-full font-bold text-[15px] hover:bg-[#c2eb1b] transition-colors shadow-sm">
+            Kontak Kami
+            <span class="flex items-center justify-center w-9 h-9 rounded-full bg-[#1a1a1a] text-white">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="lg:hidden p-2 text-[#222]">
+             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="px-4 md:px-6 lg:px-8 pb-8 w-full max-w-[1600px] mx-auto">
+        <main class="relative w-full h-auto md:h-[85vh] min-h-[100vh] md:min-h-[650px] rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col items-center justify-center text-center shadow-lg py-12 md:py-0" style="background-image: url('assets/images/Hero.jpeg'); background-size: cover; background-position: center;">
+            
+            <!-- Dark Overlay for better text readability -->
+            <div class="absolute inset-0 bg-black/50 z-0"></div>
+
+            <!-- Content -->
+            <div class="relative z-10 flex flex-col items-center w-full max-w-[1000px] mt-0 md:mt-[-120px] mb-10 md:mb-0 px-2">
+                <h1 class="text-[36px] sm:text-[40px] md:text-[60px] lg:text-[76px] font-sans font-bold text-white leading-[1.1] md:leading-[1.05] mb-5 md:mb-6 tracking-tight drop-shadow-md">
+                    Wujudkan Perubahan Nyata <br class="hidden md:block"> Untuk Lingkungan Kita
+                </h1>
+                
+                <p class="text-[14px] md:text-[17px] text-white/95 mb-8 md:mb-10 max-w-[750px] font-sans leading-[1.6] drop-shadow-md px-2 md:px-0">
+                    Ubah keluhan jadi tindakan. Laporkan isu sekitarmu, akses edukasi interaktif, <br class="hidden md:block"> dan berkolaborasi dengan warga lokal ciptakan lingkungan sehat.
+                </p>
+
+                <!-- CTA Button -->
+                <a href="#" class="inline-flex items-center gap-3 bg-white text-[#1a1a1a] px-2 py-2 pl-7 rounded-full font-sans font-bold hover:bg-gray-100 transition-all text-[15px] shadow-md group">
+                    Lapor Masalah
+                    <span class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1a1a1a] text-white transition-transform group-hover:translate-x-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Bottom Glass Cards -->
+            <div class="relative md:absolute bottom-0 md:bottom-8 left-0 w-full px-4 sm:px-6 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 z-10">
+                
+                <!-- Card 1 -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-5 bg-[#0a2e10]/40 backdrop-blur-md border border-white/20 p-4 md:p-5 rounded-[20px] md:rounded-[28px] text-left shadow-xl">
+                    <img src="assets/images/Hero.jpeg" alt="Tree" class="w-24 h-24 rounded-[20px] object-cover shadow-sm hidden sm:block">
+                    <div class="flex-1">
+                        <h3 class="text-white font-bold text-[15px] md:text-[18px] mb-1 md:mb-1.5 tracking-tight">Program Tanam Pohon</h3>
+                        <p class="text-white/80 text-[13px] md:text-[14px] mb-2 md:mb-3 leading-relaxed">Setiap laporan yang diselesaikan, kami berkontribusi pada proyek reboisasi di Indonesia.</p>
+                        <a href="#" class="text-white text-[12.5px] md:text-[13.5px] font-semibold flex items-center gap-1.5 group hover:text-[#d4ff1e] transition-colors">
+                            Baca Selengkapnya 
+                            <svg class="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-[#0a2e10]/40 backdrop-blur-md border border-white/20 p-4 md:p-7 rounded-[20px] md:rounded-[28px] text-left flex flex-col justify-between shadow-xl">
+                    <p class="text-white/95 text-[13px] md:text-[14.5px] leading-relaxed mb-3 md:mb-5">"Saya sangat menghargai transparansi Suara Warga terkait dampak lingkungan mereka. Saya merasa menjadi bagian dari sesuatu yang lebih besar setiap kali saya berkontribusi di sini."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 md:w-11 md:h-11 rounded-full bg-gray-300 overflow-hidden shadow-sm">
+                            <img src="https://i.pravatar.cc/100?img=11" alt="Daniel" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-[13px] md:text-[14.5px] tracking-tight">Daniel</h4>
+                            <p class="text-white/70 text-[11px] md:text-[12.5px] font-medium">Relawan LSM, Surabaya</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
