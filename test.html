@@ -102,6 +102,88 @@
 
         </main>
     </div>
+<!-- Section 2 Start -->
+    <!-- New Section: Text Reveal on Scroll -->
+    <section class="w-full max-w-[1600px] mx-auto px-[20px] py-24 md:py-32 lg:py-40 flex flex-col md:flex-row gap-8 md:gap-16 lg:gap-[150px] items-start">
+        <!-- Left Badge -->
+        <div class="flex-none pt-2 md:pt-4">
+            <div class="inline-flex items-center justify-center border border-gray-300 rounded-full px-4 py-1.5 text-[14px] text-[#1a1a1a] font-medium tracking-wide">
+                Langkah Awal Perubahan
+            </div>
+        </div>
 
+        <!-- Right Text Content -->
+        <div class="w-full max-w-[900px] lg:ml-auto">
+            <p id="scroll-reveal-text" class="text-[32px] md:text-[40px] lg:text-[50px] leading-[1.2] tracking-tight text-[#1a1a1a]" style="font-family: 'PP Neue Montreal', sans-serif; font-weight: 500;">
+                Kami percaya lingkungan yang bersih <br class="hidden md:block">
+                berawal dari kepedulian yang terorganisir. <br class="hidden md:block">
+                Mari wujudkan transparansi dan langkah <br class="hidden md:block">
+                konkret bersama komunitas peduli <br class="hidden md:block">
+                lingkungan.
+            </p>
+        </div>
+    </section>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const textElement = document.getElementById('scroll-reveal-text');
+            if (!textElement) return;
+            
+            const childNodes = Array.from(textElement.childNodes);
+            textElement.innerHTML = '';
+            
+            childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const words = node.textContent.trim().split(/\s+/);
+                    words.forEach(word => {
+                        if (word) {
+                            const span = document.createElement('span');
+                            span.textContent = word + ' ';
+                            span.classList.add('transition-colors', 'duration-300', 'text-[#c0c0c0]');
+                            textElement.appendChild(span);
+                        }
+                    });
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+                    textElement.appendChild(node.cloneNode());
+                }
+            });
+
+            const spans = textElement.querySelectorAll('span');
+
+            const handleScroll = () => {
+                const rect = textElement.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Mulai reveal ketika bagian atas text mencapai 85% layar
+                // Selesai reveal ketika mencapai 35% layar
+                const start = windowHeight * 0.85;
+                const end = windowHeight * 0.35;
+                
+                const position = rect.top;
+                
+                let progress = (start - position) / (start - end);
+                progress = Math.max(0, Math.min(1, progress));
+                
+                const wordsToReveal = Math.floor(progress * spans.length);
+                
+                spans.forEach((span, index) => {
+                    if (index < wordsToReveal) {
+                        span.classList.remove('text-[#c0c0c0]');
+                        span.classList.add('text-[#1a1a1a]');
+                    } else {
+                        span.classList.remove('text-[#1a1a1a]');
+                        span.classList.add('text-[#c0c0c0]');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleScroll);
+            handleScroll();
+        });
+    </script>
+    
+    <!-- Section 2 End -->
 </body>
 </html>
