@@ -1,17 +1,603 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suara Warga - Lapor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporkan Masalah Lingkungan - Suara Warga</title>
 
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../../assets/js/tailwind-config.js"></script>
+  <!-- Google Fonts Connection -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Tailwind CDN & Custom Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#006C44',
+            brandDark: '#014c30',
+            brandLight: '#c3ecd4',
+            mintAccent: '#d4ff1e',
+          },
+          fontFamily: {
+            sans: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Leaflet Map Script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
-<body class="bg-light text-dark font-sans antialiased">
+<body class="bg-[#fcfdfd] text-[#1a1a1a] font-sans antialiased overflow-x-hidden min-h-screen flex flex-col">
 
-    <!-- Mulai ngoding Form Lapor dari sini -->
 
+
+  <!-- Main Section -->
+  <main class="flex-1 w-full max-w-[800px] mx-auto px-4 py-8 md:py-12">
+    
+    <!-- Page Header -->
+    <header class="mb-10 md:mb-12 text-center md:text-left">
+      <h1 class="text-[32px] md:text-[40px] font-bold text-[#1a1a1a] tracking-tight leading-tight">
+        Laporkan Masalah Lingkungan
+      </h1>
+      <p class="text-gray-500 text-[15px] md:text-[16px] mt-2.5 max-w-[650px] leading-relaxed">
+        Kontribusi Anda membantu menciptakan lingkungan yang lebih bersih dan berkelanjutan bagi kita semua.
+      </p>
+    </header>
+
+    <!-- Main Interactive Form -->
+    <form id="reportForm" class="flex flex-col gap-8 md:gap-10">
+
+      <!-- CARD 1: Bukti Foto (Image Upload) -->
+      <section class="bg-white border border-gray-100 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col gap-6">
+        <div>
+          <h2 class="text-[18px] md:text-[20px] font-bold text-[#1a1a1a] tracking-tight">
+            Bukti Foto
+          </h2>
+          <p class="text-gray-400 text-[13px] md:text-[14px] mt-1">
+            Lampirkan satu atau lebih foto kondisi masalah lingkungan di lokasi.
+          </p>
+        </div>
+
+        <!-- Drag & Drop Zone -->
+        <div id="dropZone" class="border-2 border-dashed border-gray-200 hover:border-brand/50 rounded-2xl p-8 flex flex-col items-center justify-center gap-3 bg-gray-50/50 cursor-pointer transition-colors duration-300">
+          <input type="file" id="imageInput" accept="image/jpeg, image/png" multiple class="hidden">
+          <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm text-gray-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+            </svg>
+          </div>
+          <div class="text-center">
+            <p class="text-[14px] font-semibold text-[#1a1a1a]">Tarik dan lepas foto di sini, atau klik untuk memilih</p>
+            <p class="text-gray-400 text-[12px] mt-1">Maksimal 2MB per file (Format: JPG, PNG)</p>
+          </div>
+        </div>
+
+        <!-- Previews list -->
+        <div id="previewContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-4 hidden">
+          <!-- Dynamically populated previews go here -->
+        </div>
+      </section>
+
+      <!-- CARD 2: Kategori Masalah -->
+      <section class="bg-white border border-gray-100 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col gap-6">
+        <div>
+          <h2 class="text-[18px] md:text-[20px] font-bold text-[#1a1a1a] tracking-tight">
+            Kategori Masalah
+          </h2>
+          <p class="text-gray-400 text-[13px] md:text-[14px] mt-1">
+            Pilih kategori masalah yang paling sesuai, atau tulis sendiri.
+          </p>
+        </div>
+
+        <!-- Grid of Category Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+          
+          <!-- Category 1: Sampah -->
+          <button type="button" data-category="Sampah" class="category-btn flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border border-gray-100 hover:border-brand/40 hover:bg-brand/5 transition-all text-[#1a1a1a] font-semibold text-[14px] bg-white group">
+            <span class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 transition-colors group-hover:bg-brand/10 group-hover:text-brand">
+              <!-- Trash SVG -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </span>
+            Sampah
+          </button>
+
+          <!-- Category 2: Polusi Air -->
+          <button type="button" data-category="Polusi Air" class="category-btn flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border border-gray-100 hover:border-brand/40 hover:bg-brand/5 transition-all text-[#1a1a1a] font-semibold text-[14px] bg-white group">
+            <span class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 transition-colors group-hover:bg-brand/10 group-hover:text-brand">
+              <!-- Water Drop SVG -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.105-7.5 12-7.5 12s-7.5-4.895-7.5-12a7.5 7.5 0 1115 0z" />
+              </svg>
+            </span>
+            Polusi Air
+          </button>
+
+          <!-- Category 3: Polusi Udara -->
+          <button type="button" data-category="Polusi Udara" class="category-btn flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border border-gray-100 hover:border-brand/40 hover:bg-brand/5 transition-all text-[#1a1a1a] font-semibold text-[14px] bg-white group">
+            <span class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 transition-colors group-hover:bg-brand/10 group-hover:text-brand">
+              <!-- Wind SVG -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4M20 8H8M20 16H10" />
+              </svg>
+            </span>
+            Polusi Udara
+          </button>
+
+          <!-- Category 4: Ilegal Logging -->
+          <button type="button" data-category="Ilegal Logging" class="category-btn flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border border-gray-100 hover:border-brand/40 hover:bg-brand/5 transition-all text-[#1a1a1a] font-semibold text-[14px] bg-white group">
+            <span class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 transition-colors group-hover:bg-brand/10 group-hover:text-brand">
+              <!-- Tree SVG -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M12 7l-5 5m5-5l5 5m-5-8l-7 7m7-7l7 7" />
+              </svg>
+            </span>
+            Ilegal Logging
+          </button>
+
+          <!-- Category 5: Lainnya / Tulis Sendiri -->
+          <button type="button" id="customCategoryBtn" data-category="Lainnya" class="category-btn flex flex-col items-center justify-center gap-3 p-5 rounded-2xl border border-gray-100 hover:border-brand/40 hover:bg-brand/5 transition-all text-[#1a1a1a] font-semibold text-[14px] bg-white group">
+            <span class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-500 transition-colors group-hover:bg-brand/10 group-hover:text-brand">
+              <!-- Edit/Pencil SVG -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+              </svg>
+            </span>
+            Lainnya
+          </button>
+
+        </div>
+
+        <!-- Custom Category Input Field (Hidden by default) -->
+        <div id="customCategoryContainer" class="hidden transition-all duration-300">
+          <label for="customCategoryInput" class="block text-[14px] font-semibold text-[#1a1a1a] mb-2">Tulis Kategori Anda Sendiri</label>
+          <input type="text" id="customCategoryInput" placeholder="Contoh: Pencemaran Suara, Sampah Medis..." class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/10 transition-all text-[15px]">
+        </div>
+      </section>
+
+      <!-- CARD 3: Lokasi Kejadian (Geolocation + Leaflet Map) -->
+      <section class="bg-white border border-gray-100 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col gap-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-[18px] md:text-[20px] font-bold text-[#1a1a1a] tracking-tight">
+              Lokasi Kejadian
+            </h2>
+            <p class="text-gray-400 text-[13px] md:text-[14px] mt-1">
+              Pilih titik kejadian pada peta atau gunakan lokasi GPS Anda saat ini.
+            </p>
+          </div>
+          
+          <!-- Use current location button -->
+          <button type="button" id="geolocationBtn" class="flex items-center gap-2 self-start bg-brand/5 hover:bg-brand/10 text-brand text-[13.5px] font-bold px-4 py-2 rounded-xl transition-all group">
+            <svg class="w-4 h-4 text-brand animate-pulse" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.14-7.5 12-7.5 12s-7.5-4.86-7.5-12a7.5 7.5 0 1115 0z" />
+            </svg>
+            Gunakan Lokasi Saya
+          </button>
+        </div>
+
+        <!-- Address Search / Display Input -->
+        <div class="flex flex-col gap-2">
+          <label for="addressInput" class="block text-[14px] font-semibold text-[#1a1a1a]">Alamat Lokasi</label>
+          <input type="text" id="addressInput" placeholder="Masukkan alamat atau pilih langsung di peta..." class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/10 transition-all text-[15px]">
+        </div>
+
+        <!-- Coordinates Hidden / Display Panel -->
+        <div class="flex gap-4 text-[12px] text-gray-500 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
+          <div>Latitude: <span id="latDisplay" class="font-mono text-gray-700">-</span></div>
+          <div>Longitude: <span id="lngDisplay" class="font-mono text-gray-700">-</span></div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="relative w-full h-[320px] rounded-2xl overflow-hidden border border-gray-100 shadow-inner z-0">
+          <div id="map" class="w-full h-full"></div>
+        </div>
+      </section>
+
+      <!-- CARD 4: Deskripsi Masalah -->
+      <section class="bg-white border border-gray-100 rounded-3xl p-6 md:p-10 shadow-sm flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="text-[18px] md:text-[20px] font-bold text-[#1a1a1a] tracking-tight">
+              Deskripsi Masalah
+            </h2>
+            <p class="text-gray-400 text-[13px] md:text-[14px] mt-1">
+              Ceritakan kronologis atau penjelasan detail agar mudah ditindaklanjuti.
+            </p>
+          </div>
+          
+          <!-- Character counter -->
+          <div class="text-[13px] font-semibold text-gray-400 bg-gray-50 px-3 py-1 rounded-full">
+            <span id="charCount">0</span>/20 karakter
+          </div>
+        </div>
+
+        <!-- Description Textarea -->
+        <div class="flex flex-col gap-2">
+          <textarea id="descriptionInput" rows="5" placeholder="Ceritakan lebih detail mengenai masalah yang Anda temukan..." class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/10 transition-all text-[15px] resize-none"></textarea>
+          <span id="descError" class="text-red-500 text-[13px] font-medium hidden">Minimal deskripsi adalah 20 karakter.</span>
+        </div>
+      </section>
+
+      <!-- Submission Actions -->
+      <footer class="mt-4 flex flex-col sm:flex-row items-center justify-end gap-4">
+        <a href="../../index.html" class="w-full sm:w-auto text-center font-bold text-gray-500 hover:text-gray-700 px-8 py-4 transition-colors">
+          Batalkan
+        </a>
+        <button type="submit" class="w-full sm:w-auto bg-brand hover:bg-brandDark text-white font-bold text-[16px] px-10 py-4.5 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-3">
+          Kirim Laporan
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </button>
+      </footer>
+
+    </form>
+
+  </main>
+
+  <!-- Interactive Toast Notification System -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+  <!-- JavaScript Dynamic Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // Elements & State management
+      const reportForm = document.getElementById("reportForm");
+      const dropZone = document.getElementById("dropZone");
+      const imageInput = document.getElementById("imageInput");
+      const previewContainer = document.getElementById("previewContainer");
+      
+      const categoryBtns = document.querySelectorAll(".category-btn");
+      const customCategoryContainer = document.getElementById("customCategoryContainer");
+      const customCategoryInput = document.getElementById("customCategoryInput");
+      
+      const geolocationBtn = document.getElementById("geolocationBtn");
+      const addressInput = document.getElementById("addressInput");
+      const latDisplay = document.getElementById("latDisplay");
+      const lngDisplay = document.getElementById("lngDisplay");
+      
+      const descriptionInput = document.getElementById("descriptionInput");
+      const charCount = document.getElementById("charCount");
+      const descError = document.getElementById("descError");
+      const toastContainer = document.getElementById("toastContainer");
+
+      let selectedCategory = "";
+      let uploadedImages = []; // Array to store raw files
+
+      // --- Toast Notification helper ---
+      const showToast = (message, type = "success") => {
+        const toast = document.createElement("div");
+        toast.className = `flex items-center gap-3 px-5 py-4 rounded-2xl shadow-xl transition-all duration-500 transform translate-y-4 opacity-0 text-[14.5px] font-semibold bg-white border border-gray-100 ${
+          type === "success" ? "text-brand border-l-4 border-l-brand" : "text-red-600 border-l-4 border-l-red-500"
+        }`;
+        
+        const iconSvg = type === "success" 
+          ? `<svg class="w-5 h-5 text-brand shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`
+          : `<svg class="w-5 h-5 text-red-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>`;
+        
+        toast.innerHTML = `${iconSvg} <span>${message}</span>`;
+        toastContainer.appendChild(toast);
+        
+        // Triggers CSS transition
+        setTimeout(() => {
+          toast.classList.remove("translate-y-4", "opacity-0");
+        }, 10);
+        
+        // Auto-remove after 4 seconds
+        setTimeout(() => {
+          toast.classList.add("opacity-0", "translate-y-2");
+          setTimeout(() => {
+            toast.remove();
+          }, 500);
+        }, 4000);
+      };
+
+      // --- Multi-Image Upload logic ---
+      const processImages = (files) => {
+        const maxSize = 2 * 1024 * 1024; // 2MB limit
+        
+        Array.from(files).forEach((file) => {
+          if (file.size > maxSize) {
+            showToast(`Gagal: File "${file.name}" melebihi ukuran maksimal 2MB.`, "error");
+            return;
+          }
+          
+          uploadedImages.push(file);
+          
+          // Render Live Thumbnail Previews
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const index = uploadedImages.length - 1;
+            const previewCard = document.createElement("div");
+            previewCard.className = "relative group rounded-xl overflow-hidden aspect-square border border-gray-100 shadow-sm";
+            previewCard.dataset.index = index;
+            
+            previewCard.innerHTML = `
+              <img src="${e.target.result}" alt="Preview" class="w-full h-full object-cover">
+              <button type="button" class="delete-btn absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center text-white transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            `;
+            
+            previewContainer.appendChild(previewCard);
+            
+            // Delete button callback
+            previewCard.querySelector(".delete-btn").addEventListener("click", () => {
+              uploadedImages.splice(index, 1);
+              previewCard.remove();
+              updatePreviewsListIndices();
+            });
+          };
+          reader.readAsDataURL(file);
+        });
+
+        // Show container if images are present
+        previewContainer.classList.remove("hidden");
+      };
+
+      const updatePreviewsListIndices = () => {
+        const cards = previewContainer.querySelectorAll("[data-index]");
+        cards.forEach((card, newIndex) => {
+          card.dataset.index = newIndex;
+        });
+        if (uploadedImages.length === 0) {
+          previewContainer.classList.add("hidden");
+        }
+      };
+
+      // Drop Zone Bindings
+      dropZone.addEventListener("click", () => imageInput.click());
+      
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("border-brand", "bg-brand/5");
+      });
+
+      dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("border-brand", "bg-brand/5");
+      });
+
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("border-brand", "bg-brand/5");
+        if (e.dataTransfer.files.length > 0) {
+          processImages(e.dataTransfer.files);
+        }
+      });
+
+      imageInput.addEventListener("change", (e) => {
+        if (e.target.files.length > 0) {
+          processImages(e.target.files);
+        }
+      });
+
+      // --- Category Selection logic ---
+      categoryBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Reset previous selection styles
+          categoryBtns.forEach((b) => {
+            b.classList.remove("border-brand", "bg-brand/5", "text-brand");
+            b.querySelector("span").classList.remove("bg-brand/10", "text-brand");
+            b.querySelector("span").classList.add("bg-gray-50", "text-gray-500");
+          });
+
+          // Set active classes
+          btn.classList.add("border-brand", "bg-brand/5", "text-brand");
+          btn.querySelector("span").classList.remove("bg-gray-50", "text-gray-500");
+          btn.querySelector("span").classList.add("bg-brand/10", "text-brand");
+          
+          selectedCategory = btn.dataset.category;
+
+          // Slide Open custom category input if 'Lainnya' is clicked
+          if (selectedCategory === "Lainnya") {
+            customCategoryContainer.classList.remove("hidden");
+            customCategoryInput.focus();
+          } else {
+            customCategoryContainer.classList.add("hidden");
+          }
+        });
+      });
+
+      // --- Interactive Leaflet Map Integration ---
+      const defaultLat = -7.250445; // Default coordinates (Surabaya, ID)
+      const defaultLng = 112.768845;
+      
+      const map = L.map("map", {
+        center: [defaultLat, defaultLng],
+        zoom: 13,
+        zoomControl: false // Move zoom control to bottom right for premium UI feel
+      });
+
+      L.control.zoom({ position: "bottomright" }).addTo(map);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      // Customizable marker icon
+      const customMarkerIcon = L.icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41]
+      });
+
+      let activeMarker = L.marker([defaultLat, defaultLng], {
+        draggable: true,
+        icon: customMarkerIcon
+      }).addTo(map);
+
+      const updateCoordinatesDisplay = (lat, lng) => {
+        latDisplay.textContent = lat.toFixed(6);
+        lngDisplay.textContent = lng.toFixed(6);
+      };
+
+      // Initialize defaults
+      updateCoordinatesDisplay(defaultLat, defaultLng);
+
+      // Reverse Geocoding using free OpenStreetMap Nominatim API
+      const performReverseGeocoding = (lat, lng) => {
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.display_name) {
+              addressInput.value = data.display_name;
+            }
+          })
+          .catch(() => {
+            showToast("Gagal mengambil nama alamat jalan otomatis.", "error");
+          });
+      };
+
+      // Call initial geocoding for Surabaya
+      performReverseGeocoding(defaultLat, defaultLng);
+
+      // Marker dragged callback
+      activeMarker.on("dragend", () => {
+        const position = activeMarker.getLatLng();
+        updateCoordinatesDisplay(position.lat, position.lng);
+        performReverseGeocoding(position.lat, position.lng);
+      });
+
+      // Map Clicked callback
+      map.on("click", (e) => {
+        activeMarker.setLatLng(e.latlng);
+        updateCoordinatesDisplay(e.latlng.lat, e.latlng.lng);
+        performReverseGeocoding(e.latlng.lat, e.latlng.lng);
+      });
+
+      // Gunakan Lokasi Saya (GPS Integration)
+      geolocationBtn.addEventListener("click", () => {
+        if (!navigator.geolocation) {
+          showToast("Geolokasi tidak didukung oleh browser Anda.", "error");
+          return;
+        }
+
+        geolocationBtn.disabled = true;
+        geolocationBtn.innerHTML = `
+          <svg class="w-4 h-4 text-brand animate-spin" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+          Mendeteksi Lokasi...
+        `;
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const gpsLat = position.coords.latitude;
+            const gpsLng = position.coords.longitude;
+            
+            map.setView([gpsLat, gpsLng], 16);
+            activeMarker.setLatLng([gpsLat, gpsLng]);
+            updateCoordinatesDisplay(gpsLat, gpsLng);
+            performReverseGeocoding(gpsLat, gpsLng);
+            
+            showToast("Sukses: Lokasi GPS terdeteksi.", "success");
+            
+            // Restore button styling
+            geolocationBtn.disabled = false;
+            geolocationBtn.innerHTML = `
+              <svg class="w-4 h-4 text-brand animate-pulse" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.14-7.5 12-7.5 12s-7.5-4.86-7.5-12a7.5 7.5 0 1115 0z" />
+              </svg>
+              Gunakan Lokasi Saya
+            `;
+          },
+          () => {
+            showToast("Gagal: Izin GPS ditolak atau sinyal lemah.", "error");
+            geolocationBtn.disabled = false;
+            geolocationBtn.innerHTML = `
+              <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.14-7.5 12-7.5 12s-7.5-4.86-7.5-12a7.5 7.5 0 1115 0z" />
+              </svg>
+              Gunakan Lokasi Saya
+            `;
+          },
+          { enableHighAccuracy: true, timeout: 8000 }
+        );
+      });
+
+      // --- Live Description validation ---
+      descriptionInput.addEventListener("input", () => {
+        const textLength = descriptionInput.value.length;
+        charCount.textContent = textLength;
+        
+        // Style character counter green if valid
+        if (textLength >= 20) {
+          charCount.classList.remove("text-gray-400", "text-red-500");
+          charCount.classList.add("text-brand");
+          descError.classList.add("hidden");
+        } else {
+          charCount.classList.remove("text-brand");
+          charCount.classList.add("text-gray-400");
+        }
+      });
+
+      // --- Form Submission logic ---
+      reportForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        // Validate Category
+        let finalCategory = selectedCategory;
+        if (selectedCategory === "Lainnya") {
+          finalCategory = customCategoryInput.value.trim();
+          if (!finalCategory) {
+            showToast("Harap isi deskripsi kategori masalah kustom Anda.", "error");
+            customCategoryInput.focus();
+            return;
+          }
+        } else if (!finalCategory) {
+          showToast("Harap pilih salah satu kategori masalah.", "error");
+          return;
+        }
+
+        // Validate Address
+        const finalAddress = addressInput.value.trim();
+        if (!finalAddress) {
+          showToast("Harap isi alamat lokasi kejadian.", "error");
+          addressInput.focus();
+          return;
+        }
+
+        // Validate Description (Min 20 characters)
+        const finalDescription = descriptionInput.value.trim();
+        if (finalDescription.length < 20) {
+          descError.classList.remove("hidden");
+          descriptionInput.focus();
+          showToast("Gagal: Deskripsi minimal 20 karakter.", "error");
+          return;
+        }
+
+        // Success state simulates payload transmission
+        showToast("Laporan Anda berhasil dikirim! Terima kasih.", "success");
+        
+        // Reset state after 1.5 seconds and redirect back
+        setTimeout(() => {
+          window.location.href = "../../index.html";
+        }, 2000);
+      });
+
+    });
+  </script>
+  
 </body>
 </html>
