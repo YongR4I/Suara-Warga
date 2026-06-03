@@ -131,12 +131,15 @@
         <!-- Page Header -->
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
             <div>
-                <h1 class="text-[28px] md:text-[36px] font-bold text-[#1a1a1a] tracking-tight leading-tight mb-2">Eksplorasi Laporan Warga</h1>
-                <p class="text-gray-500 text-[14px] md:text-[15px] leading-relaxed max-w-[480px]">Transparansi publik untuk aksi lingkungan nyata. Temukan dan pantau isu lingkungan di sekitar Anda.</p>
+                <h1 class="text-[28px] md:text-[36px] font-bold text-[#1a1a1a] tracking-tight leading-tight mb-2">
+                    Eksplorasi Laporan Warga</h1>
+                <p class="text-gray-500 text-[14px] md:text-[15px] leading-relaxed max-w-[480px]">Transparansi publik
+                    untuk aksi lingkungan nyata. Temukan dan pantau isu lingkungan di sekitar Anda.</p>
             </div>
             <a href="../form/index.html"
                 class="self-start md:self-auto flex items-center gap-2.5 bg-[#006C44] text-white px-6 py-3 rounded-full font-bold text-[14px] hover:bg-[#014c30] transition-all shadow-sm hover:shadow-md group">
-                <svg class="w-5 h-5 transition-transform group-hover:rotate-90 duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 transition-transform group-hover:rotate-90 duration-300" fill="none"
+                    stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
                 Buat Laporan Baru
@@ -166,7 +169,7 @@
 
             <!-- Right: Map with overlays -->
             <div
-                class="relative z-10 w-full lg:flex-[1] lg:max-w-[490px] h-[500px] lg:h-[750px] rounded-[24px] overflow-hidden border border-gray-200 shadow-sm">
+                class="relative z-10 w-full lg:flex-[1] lg:max-w-[490px] h-[500px] lg:h-[750px] lg:sticky lg:top-24 rounded-[24px] overflow-hidden border border-gray-200 shadow-sm">
                 <div id="map" style="width:100%; height:100%;"></div>
 
                 <!-- Search + Filters overlay -->
@@ -573,8 +576,8 @@
         function buildCardHTML(report) {
             const supportedReports = JSON.parse(localStorage.getItem('suaraWargaSupported') || '[]');
             const isLiked = supportedReports.map(String).includes(String(report.id));
-            const likedClass = isLiked 
-                ? "bg-transparent text-[#006C44] cursor-default" 
+            const likedClass = isLiked
+                ? "bg-transparent text-[#006C44] cursor-default"
                 : "bg-transparent text-gray-400 hover:text-[#006C44]";
             const svgFill = isLiked ? "#006C44" : "white";
             const svgStroke = isLiked ? "#006C44" : "#9ca3af";
