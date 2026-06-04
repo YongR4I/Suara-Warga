@@ -94,7 +94,7 @@
         </a>
 
         <div class="hidden lg:flex items-center gap-10 font-semibold text-[#1a1a1a] text-[15px]">
-            <a href="../../index.html" class="hover:text-gray-500 transition-colors">Home</a>
+            <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
             <div class="relative group">
                 <button class="hover:text-gray-500 transition-colors flex items-center gap-1">
                     Laporan
@@ -110,7 +110,18 @@
                 </div>
             </div>
             <a href="#" class="hover:text-gray-500 transition-colors">Edukasi</a>
-            <a href="#" class="hover:text-gray-500 transition-colors">Komunitas</a>
+            <div class="relative group">
+                <button class="hover:text-gray-500 transition-colors flex items-center gap-1">
+                    Komunitas
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col py-2">
+                    <a href="../../komunitas/event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Event Komunitas</a>
+                    <a href="../../komunitas/see more event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Lihat semua event</a>
+                </div>
+            </div>
             <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
         </div>
 
@@ -123,7 +134,32 @@
                 </svg>
             </span>
         </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 text-[#222]">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+        class="lg:hidden hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center gap-8 text-[#1a1a1a] font-semibold text-[20px]">
+        <button id="mobileMenuClose" class="absolute top-6 right-6 p-2">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
+        <a href="../form/index.html" class="hover:text-gray-500 transition-colors">Laporkan</a>
+        <a href="index.html" class="hover:text-gray-500 transition-colors text-brand font-bold">Lihat Semua Laporan</a>
+        <a href="#" class="hover:text-gray-500 transition-colors">Edukasi</a>
+        <a href="../../komunitas/event/index.html" class="hover:text-gray-500 transition-colors">Event Komunitas</a>
+        <a href="../../komunitas/see more event/index.html" class="hover:text-gray-500 transition-colors">Lihat Semua Event</a>
+        <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
+    </div>
 
     <!-- Main Content -->
     <main style="flex-grow:1; width:100%; max-width:1600px; margin:0 auto; padding:32px 40px;">
@@ -340,7 +376,7 @@
 
             <!-- Copyright -->
             <div class="pt-8 text-center text-white/50 text-[13px]">
-                Copyright &copy; 2024 Suara Warga - All Rights Reserved.
+                Hak Cipta &copy; 2024 Suara Warga. Seluruh Hak Cipta Dilindungi.
             </div>
         </div>
     </footer>
@@ -349,6 +385,22 @@
     <div id="toastContainer" class="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3"></div>
 
     <script>
+        // ====== Mobile Menu Logic ======
+        document.addEventListener("DOMContentLoaded", () => {
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const mobileMenu = document.getElementById("mobileMenu");
+            const mobileMenuClose = document.getElementById("mobileMenuClose");
+
+            if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+                mobileMenuBtn.addEventListener("click", () => {
+                    mobileMenu.classList.remove("hidden");
+                });
+                mobileMenuClose.addEventListener("click", () => {
+                    mobileMenu.classList.add("hidden");
+                });
+            }
+        });
+
         // ====== DATA ======
         const dummyReports = [
             {

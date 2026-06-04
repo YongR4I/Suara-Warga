@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Event - Suara Warga</title>
+  <meta name="description" content="Detail kegiatan komunitas peduli lingkungan Suara Warga.">
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#064e3b',
+            brandDark: '#043927',
+            brandLight: '#d1fae5',
+          },
+          fontFamily: {
+            sans: ['"Inter Display"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Leaflet Map Script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+
+<body class="bg-[#fcfdfd] text-[#1a1a1a] font-sans antialiased overflow-x-hidden min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between px-6 md:px-12 py-5 w-full max-w-[1600px] mx-auto bg-white">
+    <!-- Logo -->
+    <a href="../../index.html" class="flex items-center gap-2.5 z-20 group">
+      <svg class="w-7 h-7 text-[#222] group-hover:rotate-90 transition-transform duration-500" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+      </svg>
+      <span class="font-sans font-bold text-[22px] tracking-tight text-[#222]">Suara Warga</span>
+    </a>
+
+    <!-- Nav Links -->
+    <div class="hidden lg:flex items-center gap-10 font-semibold text-[#1a1a1a] text-[15px]">
+      <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
+      <div class="relative group">
+        <button class="hover:text-gray-500 transition-colors flex items-center gap-1">
+          Laporan
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col py-2">
+          <a href="../../report/form/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Laporkan</a>
+          <a href="../../report/see more report/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Lihat semua laporan</a>
+        </div>
+      </div>
+      <a href="../../edukasi/edukasi.html" class="hover:text-gray-500 transition-colors">Edukasi</a>
+      <!-- Dropdown Komunitas -->
+      <div class="relative group">
+        <button class="text-[#064e3b] hover:text-[#043927] transition-colors flex items-center gap-1 font-semibold">
+          Komunitas
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col py-2">
+          <a href="../event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Event Komunitas</a>
+          <a href="../see more event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Lihat semua event</a>
+        </div>
+      </div>
+      <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
+    </div>
+
+    <!-- Right Button -->
+    <a href="../../report/form/index.html"
+      class="hidden lg:flex items-center gap-3 bg-[#d4ff1e] text-[#1a1a1a] px-1.5 py-1.5 pl-6 rounded-full font-bold text-[15px] hover:bg-[#c2eb1b] transition-colors shadow-sm">
+      Laporkan Masalah
+      <span class="flex items-center justify-center w-9 h-9 rounded-full bg-[#1a1a1a] text-white">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </span>
+    </a>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="lg:hidden p-2 text-[#222]" id="mobileMenuBtn">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="lg:hidden hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center gap-8 text-[#1a1a1a] font-semibold text-[20px]">
+    <button id="mobileMenuClose" class="absolute top-6 right-6 p-2">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
+    <a href="../../report/form/index.html" class="hover:text-gray-500 transition-colors">Laporkan</a>
+    <a href="../../report/see more report/index.html" class="hover:text-gray-500 transition-colors">Lihat Semua Laporan</a>
+    <a href="../../edukasi/edukasi.html" class="hover:text-gray-500 transition-colors">Edukasi</a>
+    <a href="../event/index.html" class="hover:text-gray-500 transition-colors">Event Komunitas</a>
+    <a href="../see more event/index.html" class="hover:text-gray-500 transition-colors">Lihat Semua Event</a>
+    <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
+  </div>
+
+  <!-- Incident Hero Header Section Container -->
+  <div class="px-4 md:px-6 lg:px-8 pb-8 w-full max-w-[1600px] mx-auto">
+    <!-- Back Button -->
+    <div class="mb-5 flex">
+      <a href="../event/index.html"
+        class="inline-flex items-center gap-2.5 text-[14px] font-bold text-[#064e3b] hover:text-[#043927] transition-all group">
+        <span
+          class="flex items-center justify-center w-8 h-8 rounded-full bg-[#064e3b]/10 group-hover:bg-[#064e3b]/20 text-[#064e3b] transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+        </span>
+        <span>Kembali ke Halaman Komunitas</span>
+      </a>
+    </div>
+
+    <!-- Event Hero Header Section -->
+    <div class="relative w-full aspect-video max-h-[300px] md:max-h-[600px] bg-gray-950 rounded-[32px] md:rounded-[48px] overflow-hidden flex-shrink-0 group shadow-lg">
+      <img id="eventHeroImage" src="" alt="Event Hero Image" class="absolute inset-0 w-full h-full object-cover z-0">
+      
+      <!-- Gradient shadow at the bottom for text readability -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent pointer-events-none z-10"></div>
+
+      <!-- Hero Information Container -->
+      <div class="absolute inset-0 z-20 flex flex-col justify-end w-full max-w-[1200px] mx-auto px-6 pb-8 md:pb-12 pointer-events-none">
+        <div class="flex flex-wrap items-center gap-3 mb-3 pointer-events-auto">
+          <span class="bg-[#064e3b] text-white text-[11px] font-extrabold px-3.5 py-1.5 rounded-lg shadow-sm" id="eventBadge">
+            ACARA MENDATANG
+          </span>
+          <span class="flex items-center gap-1.5 text-[13px] text-white/95">
+            <svg class="w-4 h-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <span class="font-medium">Kegiatan Komunitas Terverifikasi</span>
+          </span>
+        </div>
+
+        <h1 id="eventTitle" class="text-[26px] md:text-[40px] lg:text-[46px] font-bold text-white tracking-tight leading-tight mb-4 drop-shadow-md pointer-events-auto">
+          Nama Event
+        </h1>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/15 text-[14px] text-white/80 pointer-events-auto">
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <path d="M16 2v4M8 2v4M3 10h18" />
+              </svg>
+              <strong id="eventDate" class="text-white font-semibold">-</strong>
+            </span>
+            <span class="opacity-30 hidden sm:inline">|</span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-[#d4ff1e]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.14-7.5 12-7.5 12s-7.5-4.86-7.5-12a7.5 7.5 0 1115 0z" />
+              </svg>
+              <strong id="eventLocation" class="text-white font-semibold">-</strong>
+            </span>
+          </div>
+
+          <button id="shareBtn" class="self-start flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 backdrop-blur-md px-5 py-2.5 rounded-xl font-semibold text-[14px] text-white transition-all shadow-md">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+            Bagikan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <main class="flex-1 w-full max-w-[1200px] mx-auto px-6 py-10 md:py-12">
+    <div class="flex flex-col lg:flex-row gap-8 lg:items-stretch justify-between w-full">
+
+      <!-- Left Column: Tentang Kegiatan, Persiapan Peserta, Cara Berpartisipasi -->
+      <div class="flex flex-col gap-6 w-full lg:flex-[2] lg:max-w-[770px]">
+        
+        <!-- Tentang Kegiatan Section -->
+        <section class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col gap-5 h-full">
+          <h2 class="text-[17px] md:text-[19px] font-bold text-[#1a1a1a] tracking-tight">Tentang Kegiatan</h2>
+          <p id="aboutText" class="text-gray-600 text-[14px] md:text-[15px] leading-relaxed">
+            -
+          </p>
+          <div>
+            <h4 class="font-bold text-[14px] md:text-[15px] mb-2 text-[#1a1a1a]">Apa yang perlu dibawa?</h4>
+            <ul id="itemsRequired" class="list-disc pl-5 text-gray-650 text-[14px] space-y-1">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+          <div class="mt-auto">
+            <h4 class="font-bold text-[14px] md:text-[15px] mb-1 text-[#1a1a1a]">Titik Kumpul</h4>
+            <p id="meetingPoint" class="text-gray-600 text-[14px] md:text-[15px] leading-relaxed">
+              -
+            </p>
+          </div>
+        </section>
+
+        <!-- Persiapan Peserta & Cara Berpartisipasi Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Persiapan Peserta Box -->
+          <div class="bg-[#f0f9ff] border border-sky-100/50 rounded-3xl p-6 shadow-sm flex flex-col gap-4 justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-600 shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-sky-500 tracking-wider uppercase block">PERSIAPAN PESERTA</span>
+                <h3 class="font-bold text-[15px] text-[#1a1a1a]">Daftar Perlengkapan</h3>
+              </div>
+            </div>
+            <ul id="participantPrepList" class="space-y-2 text-gray-600 text-[13px] md:text-[14px] flex-1 mt-2">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <!-- Cara Berpartisipasi Box -->
+          <div class="bg-[#f0fdf4] border border-emerald-100/50 rounded-3xl p-6 shadow-sm flex flex-col gap-4 justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-emerald-500 tracking-wider uppercase block">CARA BERPARTISIPASI</span>
+                <h3 class="font-bold text-[15px] text-[#1a1a1a]">Langkah Bergabung</h3>
+              </div>
+            </div>
+            <ol id="howToParticipate" class="space-y-2 text-gray-600 text-[13px] md:text-[14px] list-decimal pl-4 flex-1 mt-2">
+              <!-- Dynamically populated -->
+            </ol>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Logistik & Informasi, Gabung Aksi -->
+      <div class="flex flex-col gap-6 w-full lg:flex-[1] lg:max-w-[390px]">
+        
+        <!-- Logistik & Informasi Card -->
+        <section class="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between gap-5 h-full">
+          <div>
+            <h2 class="text-[17px] md:text-[19px] font-bold text-[#1a1a1a] tracking-tight mb-4">Logistik & Informasi</h2>
+            <ul class="space-y-4 text-gray-600 text-[14px]">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-gray-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <span class="text-xs font-semibold text-gray-400 block">Waktu Pelaksanaan</span>
+                  <span id="eventTimeDetail" class="font-bold text-gray-800">07:00 - 11:00 WIB</span>
+                </div>
+              </li>
+              
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-gray-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <div>
+                  <span class="text-xs font-semibold text-gray-400 block">Penyelenggara</span>
+                  <span id="eventOrganizer" class="font-bold text-gray-800">Komunitas SuaraWarga Jakarta</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-gray-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <div>
+                  <span class="text-xs font-semibold text-gray-400 block">Lokasi</span>
+                  <span id="eventLocationDetail" class="font-bold text-gray-800">Pantai Indah Kapuk, Penjaringan</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Map Container -->
+          <div class="relative w-full h-[220px] rounded-2xl overflow-hidden border border-gray-100 shadow-inner z-0 mt-auto">
+            <div id="eventMap" class="w-full h-full"></div>
+          </div>
+        </section>
+
+        <!-- Gabung Aksi Box -->
+        <section class="bg-brand rounded-3xl p-6 shadow-sm flex flex-col gap-4 text-white justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <h2 class="text-[16px] md:text-[18px] font-bold tracking-tight">Gabung Aksi</h2>
+            </div>
+            <p class="text-white/80 text-[13px] md:text-[14px] leading-relaxed">
+              Pendaftaran dan koordinasi lapangan dilakukan sepenuhnya melalui grup WhatsApp resmi kami. Klik tombol di bawah untuk bergabung dengan komunitas relawan lainnya.
+            </p>
+          </div>
+          
+          <div>
+            <a id="whatsappJoinBtn" href="#" target="_blank" class="flex items-center justify-center gap-2 bg-white text-brand font-bold text-[14px] py-3.5 rounded-xl hover:bg-white/90 transition-all shadow-md mt-2 w-full">
+              <svg class="w-5 h-5 text-brand fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span>Gabung Grup WhatsApp</span>
+            </a>
+            <p class="text-white/50 text-[11px] text-center mt-2">Tanpa biaya pendaftaran. Terbuka untuk umum.</p>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-[#062612] relative mt-12 md:mt-16">
+    <!-- Top part with background image -->
+    <div class="relative w-full h-[250px] md:h-[300px]">
+      <img src="../../assets/images/landingpage/Hero.jpeg" alt="Footer Background" class="absolute inset-0 w-full h-full object-cover z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#062612]/60 via-[#062612]/80 to-[#062612] z-10"></div>
+
+      <div class="relative z-20 max-w-[1000px] mx-auto px-5 md:px-10 pt-12 md:pt-20 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+        <div class="max-w-[700px]">
+          <p class="text-white/80 font-medium text-[13px] md:text-[15px] mb-2 tracking-wide">Langkah Awal Perubahan</p>
+          <h2 class="text-white text-[28px] md:text-[36px] lg:text-[44px] font-sans font-bold leading-[1.1] tracking-tight">
+            Suarakan Aspirasi Anda <br class="hidden md:block">Untuk Lingkungan Lebih Baik
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom part with links -->
+    <div class="max-w-[1000px] mx-auto px-5 md:px-10 pb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 border-b border-white/10 pb-12">
+
+        <!-- Kolaborasi & Socials -->
+        <div class="lg:col-span-5">
+          <h4 class="text-white text-[18px] font-medium mb-4">Mari Berkolaborasi</h4>
+          <p class="text-white/70 text-[14px] leading-relaxed mb-6 max-w-[400px]">
+            Jadikan Suara Warga mitra strategis instansi pemerintah, organisasi, dan masyarakat untuk pelayanan publik yang lebih transparan dan efisien.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:border-white transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:border-white transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:border-white transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Kontak -->
+        <div class="lg:col-span-3">
+          <h4 class="text-white text-[18px] font-medium mb-6">Kontak</h4>
+          <ul class="space-y-4 text-white/70 text-[14px]">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path>
+              </svg>
+              <span>Jl. Sudirman No. 1, Jakarta, Indonesia</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.14-3.84-6.736-6.736l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"></path>
+              </svg>
+              <span>+62 812 3456 7890</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Layanan -->
+        <div class="lg:col-span-2">
+          <h4 class="text-white text-[18px] font-medium mb-6">Layanan</h4>
+          <ul class="space-y-3 text-white/70 text-[14px]">
+            <li><a href="#" class="hover:text-white transition-colors">Laporan Kerusakan</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Saran Pembangunan</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Pengaduan Warga</a></li>
+          </ul>
+        </div>
+
+        <!-- Jelajahi -->
+        <div class="lg:col-span-2">
+          <h4 class="text-white text-[18px] font-medium mb-6">Jelajahi</h4>
+          <ul class="space-y-3 text-white/70 text-[14px]">
+            <li><a href="#" class="hover:text-white transition-colors">Tentang Kami</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 text-center text-white/50 text-[13px]">
+        Hak Cipta &copy; 2024 Suara Warga. Seluruh Hak Cipta Dilindungi.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast system for sharing -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // --- Mobile Menu ---
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const mobileMenuClose = document.getElementById("mobileMenuClose");
+
+      if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.remove("hidden");
+        });
+        mobileMenuClose.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      }
+
+      // --- Toast System ---
+      const toastContainer = document.getElementById("toastContainer");
+      const showToast = (message, type = "success") => {
+        const toast = document.createElement("div");
+        toast.className = `bg-brand text-white px-6 py-3.5 rounded-2xl shadow-lg text-[14px] font-medium flex items-center gap-3 transition-all duration-300`;
+        toast.innerHTML = `<span>${message}</span>`;
+        toastContainer.appendChild(toast);
+        setTimeout(() => { toast.remove(); }, 3000);
+      };
+
+      // --- Share Button ---
+      const shareBtn = document.getElementById("shareBtn");
+      const shareActionBtn = document.getElementById("shareActionBtn");
+      const handleShare = () => {
+        navigator.clipboard.writeText(window.location.href);
+        showToast("Tautan event berhasil disalin ke papan klip!");
+      };
+      if (shareBtn) shareBtn.addEventListener("click", handleShare);
+      if (shareActionBtn) shareActionBtn.addEventListener("click", handleShare);
+
+      // Bookmark action
+      const bookmarkActionBtn = document.getElementById("bookmarkActionBtn");
+      if (bookmarkActionBtn) {
+        bookmarkActionBtn.addEventListener("click", () => {
+          showToast("Event berhasil disimpan ke bookmark!");
+        });
+      }
+
+      // --- Get event ID from URL ---
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventId = urlParams.get('id') || '1';
+
+      // --- Event Data (Aligned with event list page) ---
+      const eventsData = {
+        "1": {
+          title: "Kerja Bakti Masal",
+          badge: "Acara Populer",
+          date: "15 Jan 2024",
+          time: "07:00 - 11:00 WIB",
+          organizer: "Komunitas SuaraWarga Jakarta",
+          location: "Hutan Kota Jakarta",
+          locationDetail: "Plaza Utama Hutan Kota, Senayan, Jakarta Pusat",
+          lat: -6.2215,
+          lng: 106.8096,
+          image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop",
+          aboutText: "Mari bergabung dalam aksi bersih-bersih masal untuk menjaga keasrian ruang terbuka hijau kita! SuaraWarga mengundang seluruh warga Jakarta untuk bersama-sama membersihkan area jogging track, memilah sampah organik dan non-organik, serta menanam bibit pohon baru guna menekan polusi udara perkotaan.",
+          itemsRequired: [
+            "Botol minum isi ulang (Tumbler) untuk mengurangi sampah plastik.",
+            "Pakaian yang nyaman untuk aktivitas outdoor.",
+            "Masker pelindung debu.",
+            "Semangat gotong royong yang tinggi!"
+          ],
+          meetingPoint: "Pintu Masuk Utama Hutan Kota Senayan (Dekat area parkir selatan) pada pukul 06:30 WIB.",
+          prepList: [
+            "Gunakan sepatu olahraga tertutup yang nyaman",
+            "Membawa obat-obatan pribadi jika diperlukan",
+            "Membawa topi atau pelindung matahari",
+            "Sarung tangan berkebun (jika ada)"
+          ],
+          howTo: [
+            "Gabung grup WhatsApp koordinasi relawan",
+            "Konfirmasi kehadiran di WhatsApp grup",
+            "Hadir tepat waktu di titik kumpul yang ditentukan",
+            "Ikuti briefing keselamatan sebelum memulai kegiatan"
+          ],
+          whatsapp: "https://chat.whatsapp.com/sample-group-1"
+        },
+        "2": {
+          title: "Penanaman Mangrove",
+          badge: "Pahlawan Lingkungan",
+          date: "20 Jan 2024",
+          time: "08:00 - 12:00 WIB",
+          organizer: "Yayasan Mangrove Lestari",
+          location: "Pesisir Muara Angke",
+          locationDetail: "Kawasan Restorasi Mangrove, Muara Angke, Jakarta Utara",
+          lat: -6.1018,
+          lng: 106.7725,
+          image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800&auto=format&fit=crop",
+          aboutText: "Aksi nyata melindungi garis pantai Jakarta dari abrasi laut! Kami akan menanam 500 bibit pohon mangrove baru di pesisir utara Jakarta. Kegiatan ini sangat krusial untuk menjaga ekosistem pesisir serta menjadi tempat berkembang biak biota laut.",
+          itemsRequired: [
+            "Celana panjang tebal yang boleh kotor/basah.",
+            "Sepatu bot atau sepatu karet anti slip.",
+            "Tumbler berisi air minum.",
+            "Pakaian ganti lengkap beserta kantong plastik untuk baju basah."
+          ],
+          meetingPoint: "Kantor Informasi Konservasi Mangrove Muara Angke pada pukul 07:30 WIB.",
+          prepList: [
+            "Menggunakan pakaian luar ruangan (lengan panjang direkomendasikan)",
+            "Sarung tangan kerja karet/latex pelindung tangan",
+            "Sunscreen dan topi pelindung",
+            "Kamera tahan air (opsional untuk dokumentasi)"
+          ],
+          howTo: [
+            "Masuk ke grup WhatsApp koordinasi aksi Mangrove",
+            "Isi formulir kehadiran yang disematkan di grup",
+            "Datang ke lokasi penanaman tepat waktu",
+            "Ikuti instruksi penanaman dari instruktur konservasi"
+          ],
+          whatsapp: "https://chat.whatsapp.com/sample-group-2"
+        },
+        "3": {
+          title: "Aksi Bersih Pantai",
+          badge: "Aksi Spesial",
+          date: "02 Feb 2024",
+          time: "06:30 - 10:30 WIB",
+          organizer: "Relawan Pesisir Indah",
+          location: "Pantai Ancol",
+          locationDetail: "Area Pantai Festival Ancol, Jakarta Utara",
+          lat: -6.1186,
+          lng: 106.8503,
+          image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop",
+          aboutText: "Pantai yang bersih adalah cerminan kota yang sehat. Melalui aksi bersih pantai kali ini, kita berfokus untuk membersihkan mikroplastik dan sampah kiriman di sepanjang garis pantai Ancol. Kegiatan ini juga akan diselingi dengan edukasi singkat mengenai pemilahan sampah laut.",
+          itemsRequired: [
+            "Membawa botol minum (Tumbler) pribadi.",
+            "Menggunakan kaos kaki cadangan.",
+            "Topi dan kacamata hitam untuk pelindung terik.",
+            "Tas belanja kain/reusable bag."
+          ],
+          meetingPoint: "Gerbang Masuk Pantai Festival Ancol pada pukul 06:00 WIB.",
+          prepList: [
+            "Gunakan alas kaki tertutup yang aman di atas pasir",
+            "Persiapkan tabir surya (sunblock)",
+            "Membawa jas hujan plastik tipis (antisipasi cuaca)",
+            "Sarung tangan kain pelindung tangan"
+          ],
+          howTo: [
+            "Gabung grup WhatsApp koordinasi Bersih Pantai",
+            "Laporkan konfirmasi kehadiran di WhatsApp",
+            "Kumpul di Pantai Festival sesuai jadwal",
+            "Dapatkan kantong sampah & sarung tangan gratis dari panitia"
+          ],
+          whatsapp: "https://chat.whatsapp.com/sample-group-3"
+        },
+        "4": {
+          title: "Pahlawan Sungai",
+          badge: "Mendesak",
+          date: "10 Feb 2024",
+          time: "07:30 - 11:30 WIB",
+          organizer: "Gerakan Ciliwung Bersih",
+          location: "Sungai Ciliwung",
+          locationDetail: "Bantaran Sungai Ciliwung Sektor Condet, Jakarta Timur",
+          lat: -6.2796,
+          lng: 106.8580,
+          image: "https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?q=80&w=800&auto=format&fit=crop",
+          aboutText: "Kondisi tumpukan sampah di bantaran sungai Ciliwung semakin mendesak untuk dibersihkan sebelum musim hujan memuncak. Kami membutuhkan tenaga relawan untuk melakukan pengangkutan sampah plastik yang menyumbat aliran sungai serta membersihkan area pinggiran bantaran.",
+          itemsRequired: [
+            "Pakaian lengan panjang dan celana panjang.",
+            "Sepatu boots pelindung air/lumpur.",
+            "Botol minum sendiri.",
+            "Semangat ekstra untuk kerja fisik."
+          ],
+          meetingPoint: "Posko Gerakan Ciliwung Bersih Condet pada pukul 07:00 WIB.",
+          prepList: [
+            "Pastikan kondisi tubuh dalam keadaan prima (sehat fisik)",
+            "Membawa sarung tangan karet tebal",
+            "Menggunakan masker medis atau masker kain tebal",
+            "Membawa cairan sanitasi tangan (hand sanitizer)"
+          ],
+          howTo: [
+            "Masuk grup koordinasi WhatsApp Pahlawan Sungai",
+            "Konfirmasi nama dan kesiapan fisik di grup",
+            "Kumpul di posko koordinasi Condet",
+            "Briefing pembagian zona pembersihan bantaran"
+          ],
+          whatsapp: "https://chat.whatsapp.com/sample-group-4"
+        }
+      };
+
+      const event = eventsData[eventId] || eventsData["1"];
+
+      // --- Populate UI Elements ---
+      document.getElementById("eventHeroImage").src = event.image;
+      document.getElementById("eventTitle").textContent = event.title;
+      document.getElementById("eventBadge").textContent = event.badge.toUpperCase();
+      document.getElementById("eventDate").textContent = event.date;
+      document.getElementById("eventLocation").textContent = event.location;
+      
+      document.getElementById("aboutText").textContent = event.aboutText;
+      document.getElementById("meetingPoint").textContent = event.meetingPoint;
+      document.getElementById("eventTimeDetail").textContent = event.time;
+      document.getElementById("eventOrganizer").textContent = event.organizer;
+      document.getElementById("eventLocationDetail").textContent = event.locationDetail;
+      document.getElementById("whatsappJoinBtn").href = event.whatsapp;
+
+      // Populate Items Required
+      const itemsContainer = document.getElementById("itemsRequired");
+      itemsContainer.innerHTML = "";
+      event.itemsRequired.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        itemsContainer.appendChild(li);
+      });
+
+      // Populate Prep List
+      const prepContainer = document.getElementById("participantPrepList");
+      prepContainer.innerHTML = "";
+      event.prepList.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "flex items-start gap-2 text-sky-700";
+        li.innerHTML = `
+          <svg class="w-5 h-5 text-sky-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>${item}</span>
+        `;
+        prepContainer.appendChild(li);
+      });
+
+      // Populate How To
+      const howToContainer = document.getElementById("howToParticipate");
+      howToContainer.innerHTML = "";
+      event.howTo.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        howToContainer.appendChild(li);
+      });
+
+      // --- Initialize Dynamic Leaflet Map ---
+      try {
+        if (typeof L !== 'undefined') {
+          const map = L.map('eventMap', {
+            center: [event.lat, event.lng],
+            zoom: 14,
+            zoomControl: false,
+            scrollWheelZoom: false
+          });
+
+          // Add minimalist tile layer
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+          }).addTo(map);
+
+          // Add custom brand green marker
+          const greenIcon = L.divIcon({
+            className: 'custom-div-icon',
+            html: `<div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white shadow-lg border-2 border-white animate-pulse">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+              </svg>
+            </div>`,
+            iconSize: [32, 32],
+            iconAnchor: [16, 32]
+          });
+
+          L.marker([event.lat, event.lng], { icon: greenIcon }).addTo(map)
+            .bindPopup(`<strong class="text-brand font-bold">${event.title}</strong><br><span class="text-xs text-gray-500">${event.location}</span>`)
+            .openPopup();
+
+          // Control zoom manually but clean
+          L.control.zoom({ position: 'topright' }).addTo(map);
+        } else {
+          // Fallback UI if Map fails to load (offline or CDN blocked)
+          document.getElementById('eventMap').innerHTML = `
+            <div class="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-gray-500 p-4 text-center">
+              <svg class="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+              <span class="text-xs font-bold text-brand block mb-0.5">${event.location}</span>
+              <span class="text-[11px] text-gray-400">${event.locationDetail}</span>
+            </div>
+          `;
+        }
+      } catch (e) {
+        console.error("Error loading Leaflet Map: ", e);
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
