@@ -109,7 +109,7 @@
                         laporan</a>
                 </div>
             </div>
-            <a href="#" class="hover:text-gray-500 transition-colors">Edukasi</a>
+            <a href="../../edukasi/home/index.html" class="hover:text-gray-500 transition-colors">Edukasi</a>
             <div class="relative group">
                 <button class="hover:text-gray-500 transition-colors flex items-center gap-1">
                     Komunitas
@@ -117,9 +117,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col py-2">
-                    <a href="../../komunitas/event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Event Komunitas</a>
-                    <a href="../../komunitas/see more event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Lihat semua event</a>
+                <div
+                    class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col py-2">
+                    <a href="../../komunitas/event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Event
+                        Komunitas</a>
+                    <a href="../../komunitas/see more event/index.html"
+                        class="px-4 py-2 hover:bg-gray-50 text-[14px]">Lihat semua event</a>
                 </div>
             </div>
             <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
@@ -155,9 +158,10 @@
         <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
         <a href="../form/index.html" class="hover:text-gray-500 transition-colors">Laporkan</a>
         <a href="index.html" class="hover:text-gray-500 transition-colors text-brand font-bold">Lihat Semua Laporan</a>
-        <a href="#" class="hover:text-gray-500 transition-colors">Edukasi</a>
+        <a href="../../edukasi/edukasi.html" class="hover:text-gray-500 transition-colors">Edukasi</a>
         <a href="../../komunitas/event/index.html" class="hover:text-gray-500 transition-colors">Event Komunitas</a>
-        <a href="../../komunitas/see more event/index.html" class="hover:text-gray-500 transition-colors">Lihat Semua Event</a>
+        <a href="../../komunitas/see more event/index.html" class="hover:text-gray-500 transition-colors">Lihat Semua
+            Event</a>
         <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
     </div>
 
@@ -187,7 +191,49 @@
 
             <!-- Left: Cards Grid + Load More -->
             <div class="flex flex-col items-center gap-9 w-full lg:flex-[2] lg:max-w-[900px]">
-                <div class="grid grid-cols-2 md:grid-cols-2 gap-5 w-full" id="cards-container">
+
+                <!-- Search & Filter Bar -->
+                <div class="w-full flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                    <div class="relative flex-1 w-full">
+                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none"
+                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" placeholder="Cari laporan atau lokasi..."
+                            class="w-full py-2.5 pl-10 pr-3.5 border-[1.5px] border-gray-200 rounded-xl text-sm bg-white outline-none transition-colors placeholder-gray-400 focus:border-[#006C44]"
+                            id="searchInput" />
+                    </div>
+                    <div class="flex flex-wrap gap-2" id="filterButtons">
+                        <button
+                            class="filter-btn bg-[#006C44]/15 text-[#006C44] border border-[#006C44]/30 font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all"
+                            data-filter="Semua">Semua</button>
+                        <button
+                            class="filter-btn bg-white text-gray-500 border border-gray-200 font-semibold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all hover:bg-gray-50 hover:border-[#006C44]/50 hover:text-[#006C44]"
+                            data-filter="Sampah">Sampah</button>
+                        <button
+                            class="filter-btn bg-white text-gray-500 border border-gray-200 font-semibold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all hover:bg-gray-50 hover:border-[#006C44]/50 hover:text-[#006C44]"
+                            data-filter="Air">Air</button>
+                        <button
+                            class="filter-btn bg-white text-gray-500 border border-gray-200 font-semibold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all hover:bg-gray-50 hover:border-[#006C44]/50 hover:text-[#006C44]"
+                            data-filter="Udara">Udara</button>
+                    </div>
+                </div>
+
+                <!-- Results Count -->
+                <div class="w-full flex items-center justify-between">
+                    <p class="text-gray-400 text-[13px]">Menampilkan <strong id="resultsCount"
+                            class="text-gray-700">0</strong> laporan</p>
+                    <div class="flex items-center gap-2 text-gray-400 text-[13px]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                        </svg>
+                        <span>Terbaru</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full" id="cards-container">
                     <!-- Cards injected by JS -->
                 </div>
 
@@ -208,31 +254,45 @@
                 class="relative z-10 w-full lg:flex-[1] lg:max-w-[490px] h-[500px] lg:h-[750px] lg:sticky lg:top-24 rounded-[24px] overflow-hidden border border-gray-200 shadow-sm">
                 <div id="map" style="width:100%; height:100%;"></div>
 
-                <!-- Search + Filters overlay -->
+                <!-- Map overlay header -->
                 <div class="absolute top-4 left-4 right-4 z-[1000] flex flex-col gap-2.5">
-                    <div style="position:relative;">
-                        <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:#9ca3af;"
-                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <input type="text" placeholder="Cari lokasi atau isu..."
-                            class="w-full py-2.5 pl-10 pr-3.5 border-[1.5px] border-gray-200 rounded-xl text-sm bg-white outline-none transition-colors placeholder-gray-400 focus:border-[#006C44]"
-                            id="map-search" />
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl px-4 py-3 shadow-sm border border-gray-100">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-xl bg-brand/10 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-[#006C44]" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-[12px] font-bold text-[#006C44] tracking-wide">PETA LOKASI LAPORAN</p>
+                                <p class="text-[11px] text-gray-400">Klik marker untuk melihat detail lokasi</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex flex-wrap gap-2" id="filter-container">
-                        <button
-                            class="filter-btn-map bg-[#006C44]/20 backdrop-blur-md text-[#006C44] border-[#006C44]/30 border font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all active"
-                            data-filter="Semua">Semua</button>
-                        <button
-                            class="filter-btn-map bg-white/30 backdrop-blur-md text-[#006C44] border-white/20 border font-semibold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all hover:bg-white/50 hover:border-[#006C44]/50"
-                            data-filter="Sampah">Sampah</button>
-                        <button
-                            class="filter-btn-map bg-white/30 backdrop-blur-md text-[#006C44] border-white/20 border font-semibold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all hover:bg-white/50 hover:border-[#006C44]/50"
-                            data-filter="Air">Air</button>
-                        <button
-                            class="filter-btn-map bg-white/30 backdrop-blur-md text-[#006C44] border-white/20 border font-semibold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all hover:bg-white/50 hover:border-[#006C44]/50"
-                            data-filter="Udara">Udara</button>
+                </div>
+
+                <!-- Map Stats Overlay -->
+                <div class="absolute bottom-4 left-4 right-4 z-[1000]">
+                    <div
+                        class="bg-white/90 backdrop-blur-md rounded-2xl px-4 py-3 shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#006C44] animate-pulse"></span>
+                                <span class="text-[12px] font-semibold text-gray-600" id="mapMarkerCount">0 Lokasi</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-[12px] text-gray-500">Laporan Lingkungan</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -659,38 +719,54 @@
       `;
         }
 
-        // ====== RENDER ======
+        // ====== STATE ======
+        let currentFilter = "Semua";
+        let searchQuery = "";
         let visibleCount = 4;
-        let currentFilteredReports = [];
+        const LOAD_STEP = 4;
 
-        function renderUI(filterCategory, resetCount) {
-            if (resetCount !== false) visibleCount = 4;
+        // ====== FILTER LOGIC ======
+        function getFilteredReports() {
+            return allReports.filter(r => {
+                const matchFilter = currentFilter === "Semua" || r.category === currentFilter;
+                const matchSearch = searchQuery === "" ||
+                    r.title.toLowerCase().includes(searchQuery) ||
+                    r.location.toLowerCase().includes(searchQuery) ||
+                    r.desc.toLowerCase().includes(searchQuery);
+                return matchFilter && matchSearch;
+            });
+        }
 
+        // ====== RENDER ======
+        function renderUI() {
             const container = document.getElementById("cards-container");
             const loadMoreBtn = document.getElementById("loadMoreBtn");
+            const loadLessBtn = document.getElementById("loadLessBtn");
+            const resultsCount = document.getElementById("resultsCount");
+            const mapMarkerCount = document.getElementById("mapMarkerCount");
 
             container.innerHTML = "";
             markersLayer.clearLayers();
 
-            currentFilteredReports = filterCategory === "Semua"
-                ? allReports
-                : allReports.filter(r => r.category === filterCategory);
+            const filtered = getFilteredReports();
+            resultsCount.textContent = filtered.length;
+            mapMarkerCount.textContent = filtered.length + " Lokasi";
 
-            if (currentFilteredReports.length === 0) {
+            if (filtered.length === 0) {
                 container.innerHTML = `
           <div class="col-span-2 flex flex-col items-center justify-center p-12 text-center bg-[#f9fafb] rounded-[24px] border border-[#f3f4f6]">
             <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" /></svg>
             <h3 class="font-bold text-lg text-[#111827]">Belum ada laporan</h3>
-            <p class="text-[#6b7280] text-sm mt-1.5">Tidak ditemukan laporan untuk kategori ini.</p>
+            <p class="text-[#6b7280] text-sm mt-1.5">Tidak ditemukan laporan untuk kategori atau kata kunci ini.</p>
           </div>
         `;
-                loadMoreBtn.classList.add("hidden");
-                loadMoreBtn.classList.remove("inline-flex");
+                loadMoreBtn.style.display = "none";
+                loadLessBtn.style.display = "none";
                 return;
             }
 
             const bounds = [];
-            const toShow = currentFilteredReports.slice(0, visibleCount);
+            const toShow = filtered.slice(0, visibleCount);
 
             toShow.forEach((report, i) => {
                 const conf = getCategoryConfig(report.category);
@@ -728,141 +804,55 @@
             // Fit map bounds
             if (bounds.length > 0) {
                 if (bounds.length === 1) map.flyTo(bounds[0], 13);
-                else map.flyToBounds(bounds, { padding: [50, 50], duration: 1.2 });
+                else map.fitBounds(bounds, { padding: [50, 50] });
             }
 
-            // Load more button
-            if (visibleCount < currentFilteredReports.length) {
-                loadMoreBtn.classList.remove("hidden");
-                loadMoreBtn.classList.add("inline-flex");
-            } else {
-                loadMoreBtn.classList.add("hidden");
-                loadMoreBtn.classList.remove("inline-flex");
-            }
-
-            // Load less button
-            const loadLessBtn = document.getElementById("loadLessBtn");
-            if (visibleCount > 4) {
-                loadLessBtn.classList.remove("hidden");
-                loadLessBtn.classList.add("inline-flex");
-            } else {
-                loadLessBtn.classList.add("hidden");
-                loadLessBtn.classList.remove("inline-flex");
-            }
+            // Load more/less buttons visibility
+            loadMoreBtn.style.display = visibleCount < filtered.length ? "flex" : "none";
+            loadLessBtn.style.display = visibleCount > LOAD_STEP && filtered.length > LOAD_STEP ? "flex" : "none";
         }
 
         // ====== EVENT LISTENERS ======
 
         // Load More
         document.getElementById("loadMoreBtn").addEventListener("click", () => {
-            visibleCount += 4;
-            const activeFilter = document.querySelector('.filter-btn-map.active').getAttribute('data-filter');
-            renderUI(activeFilter, false);
+            visibleCount += LOAD_STEP;
+            renderUI();
         });
 
         // Load Less
         document.getElementById("loadLessBtn").addEventListener("click", () => {
-            if (visibleCount > 4) {
-                visibleCount -= 4;
-                if (visibleCount < 4) visibleCount = 4;
-                const activeFilter = document.querySelector('.filter-btn-map.active').getAttribute('data-filter');
-                renderUI(activeFilter, false);
+            if (visibleCount > LOAD_STEP) {
+                visibleCount -= LOAD_STEP;
+                renderUI();
             }
         });
 
         // Filter Buttons
-        document.querySelectorAll('.filter-btn-map').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.filter-btn-map').forEach(b => {
-                    b.classList.remove('bg-[#006C44]/20', 'border-[#006C44]/30', 'font-bold', 'active');
-                    b.classList.add('bg-white/30', 'border-white/20', 'font-semibold', 'hover:bg-white/50', 'hover:border-[#006C44]/50');
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentFilter = btn.dataset.filter;
+                visibleCount = LOAD_STEP;
+
+                // Update active styles
+                document.querySelectorAll(".filter-btn").forEach(b => {
+                    b.className = "filter-btn bg-white text-gray-500 border border-gray-200 font-semibold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all hover:bg-gray-50 hover:border-[#006C44]/50 hover:text-[#006C44]";
                 });
-                e.currentTarget.classList.add('bg-[#006C44]/20', 'border-[#006C44]/30', 'font-bold', 'active');
-                e.currentTarget.classList.remove('bg-white/30', 'border-white/20', 'font-semibold', 'hover:bg-white/50', 'hover:border-[#006C44]/50');
-                renderUI(e.currentTarget.getAttribute('data-filter'));
+                btn.className = "filter-btn bg-[#006C44]/15 text-[#006C44] border border-[#006C44]/30 font-bold text-xs px-4 py-1.5 rounded-full cursor-pointer transition-all";
+
+                renderUI();
             });
         });
 
-        // Search
-        document.getElementById('map-search').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            const activeFilter = document.querySelector('.filter-btn-map.active').getAttribute('data-filter');
-
-            if (!query) {
-                renderUI(activeFilter);
-                return;
-            }
-
-            const container = document.getElementById("cards-container");
-            const loadMoreBtn = document.getElementById("loadMoreBtn");
-            container.innerHTML = "";
-            markersLayer.clearLayers();
-
-            let filtered = activeFilter === "Semua" ? allReports : allReports.filter(r => r.category === activeFilter);
-            filtered = filtered.filter(r =>
-                r.title.toLowerCase().includes(query) ||
-                r.location.toLowerCase().includes(query) ||
-                r.desc.toLowerCase().includes(query)
-            );
-
-            if (filtered.length === 0) {
-                container.innerHTML = `
-          <div class="col-span-2 flex flex-col items-center justify-center p-12 text-center bg-[#f9fafb] rounded-[24px] border border-[#f3f4f6]">
-            <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z" /></svg>
-            <h3 class="font-bold text-lg text-[#111827]">Tidak ditemukan</h3>
-            <p class="text-[#6b7280] text-sm mt-1.5">Coba kata kunci lain.</p>
-          </div>
-        `;
-                loadMoreBtn.classList.add("hidden");
-                loadMoreBtn.classList.remove("inline-flex");
-                document.getElementById("loadLessBtn").classList.add("hidden");
-                document.getElementById("loadLessBtn").classList.remove("inline-flex");
-                return;
-            }
-
-            const bounds = [];
-            filtered.forEach((report, i) => {
-                const conf = getCategoryConfig(report.category);
-                const card = document.createElement("div");
-                card.className = "flex flex-col bg-white rounded-[20px] border border-gray-100 overflow-hidden cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md hover:border-gray-200 hover:-translate-y-0.5 group";
-                card.style.animation = `fadeInUp 0.4s ease forwards ${i * 0.08}s`;
-                card.style.opacity = "0";
-                card.innerHTML = buildCardHTML(report);
-
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('a') || e.target.closest('button')) return;
-                    map.flyTo([report.lat, report.lng], 14, { animate: true, duration: 1.2 });
-                });
-                container.appendChild(card);
-
-                const marker = L.marker([report.lat, report.lng], { icon: createCustomMarker(report.category) });
-                marker.bindPopup(`
-          <div style="font-family:inherit; min-width:180px; padding:4px;">
-            <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;">
-              <span style="color:${conf.color}; display:inline-flex; align-items:center; justify-content:center;">${conf.icon}</span>
-              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:${conf.color};">${report.category}</span>
-            </div>
-            <h4 style="font-weight:700; font-size:14px; margin:0 0 4px 0; color:#111827;">${report.title}</h4>
-            <p style="font-size:12px; color:#6b7280; margin:0;">${report.location}</p>
-            <a href="../report detail/index.html?id=${report.id}" style="display:block; margin-top:10px; text-align:center; background:#111827; color:white; font-size:12px; font-weight:700; padding:6px; border-radius:8px; text-decoration:none;">Lihat Detail</a>
-          </div>
-        `, { className: 'custom-popup', closeButton: false });
-                markersLayer.addLayer(marker);
-                bounds.push([report.lat, report.lng]);
-            });
-
-            if (bounds.length > 0) {
-                if (bounds.length === 1) map.flyTo(bounds[0], 13);
-                else map.flyToBounds(bounds, { padding: [50, 50], duration: 1.2 });
-            }
-            loadMoreBtn.classList.add("hidden");
-            loadMoreBtn.classList.remove("inline-flex");
-            document.getElementById("loadLessBtn").classList.add("hidden");
-            document.getElementById("loadLessBtn").classList.remove("inline-flex");
+        // Search Input
+        document.getElementById("searchInput").addEventListener("input", (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            visibleCount = LOAD_STEP;
+            renderUI();
         });
 
         // ====== INIT ======
-        renderUI("Semua");
+        renderUI();
     </script>
 
 </body>
