@@ -60,7 +60,7 @@ Suara Warga hadir untuk menjembatani kesenjangan tersebut dengan menyediakan pla
 Berikut adalah beberapa dokumentasi tampilan aplikasi Suara Warga:
 
 ### 1. Halaman Utama (Landing Page)
-![Halaman Utama](https://via.placeholder.com/800x450.png?text=Foto+Halaman+Utama)
+![Halaman Utama](assets/images/Heroo.jpeg)
 
 ### 2. Form Pelaporan Warga
 ![Form Pelaporan](https://via.placeholder.com/800x450.png?text=Foto+Form+Pelaporan)
