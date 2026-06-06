@@ -17,44 +17,83 @@
 <body class="bg-[#f8f9fa] text-[#1a1a1a] antialiased flex flex-col min-h-screen">
 
   <!-- Navbar -->
-  <nav class="flex w-full items-center justify-between px-6 py-5 bg-[#f8f9fa] md:px-12">
+  <nav class="flex items-center justify-between px-6 md:px-12 py-5 w-full max-w-[1600px] mx-auto bg-white border-b border-gray-100 sticky top-0 z-50">
     <!-- Logo -->
-    <a href="../../index.html" class="flex items-center gap-2 group">
-      <svg class="w-8 h-8 text-[#0a5c36] transition-transform group-hover:scale-105" fill="currentColor" viewBox="0 0 24 24">
-        <!-- 4-point star icon based on index.html but using green -->
+    <a href="../../index.html" class="flex items-center gap-2.5 z-20 group">
+      <svg class="w-7 h-7 text-[#222] group-hover:rotate-90 transition-transform duration-500" fill="currentColor"
+        viewBox="0 0 24 24">
         <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
       </svg>
-      <span class="text-[20px] font-bold text-[#0a5c36] tracking-tight">SuaraWarga</span>
+      <span class="font-sans font-bold text-[22px] tracking-tight text-[#222]">Suara Warga</span>
     </a>
-    
-    <!-- Nav Links (Desktop) -->
-    <div class="hidden items-center gap-8 text-[14px] font-medium text-gray-600 lg:flex">
-      <a href="../../index.html" class="transition-colors hover:text-[#0a5c36]">Home</a>
-      <a href="../../report/form/index.html" class="transition-colors hover:text-[#0a5c36]">Laporkan</a>
-      <a href="#" class="border-b-2 border-[#0a5c36] pb-1 text-[#0a5c36] font-bold">Edukasi</a>
-      <a href="../../dashboard/home/index.html" class="transition-colors hover:text-[#0a5c36]">Dashboard</a>
-      <a href="#" class="transition-colors hover:text-[#0a5c36]">Komunitas</a>
+
+    <!-- Nav Links -->
+    <div class="hidden lg:flex items-center gap-10 font-semibold text-[#1a1a1a] text-[15px]">
+      <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
+      <!-- Dropdown untuk Laporan -->
+      <div class="relative group">
+        <button class="hover:text-gray-500 transition-colors flex items-center gap-1">
+          Laporan
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col py-2">
+          <a href="../../report/form/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Laporkan</a>
+          <a href="../../report/see more report/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Lihat semua laporan</a>
+        </div>
+      </div>
+      <a href="#" class="text-[#0a5c36] font-bold">Edukasi</a>
+      <!-- Dropdown Komunitas -->
+      <div class="relative group">
+        <button class="hover:text-gray-500 transition-colors flex items-center gap-1">
+          Komunitas
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 flex flex-col py-2">
+          <a href="../../komunitas/event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Event Komunitas</a>
+          <a href="../../komunitas/see more event/index.html" class="px-4 py-2 hover:bg-gray-50 text-[14px]">Lihat semua event</a>
+        </div>
+      </div>
+      <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
     </div>
 
-    <!-- Right Area -->
-    <div class="hidden items-center gap-5 lg:flex">
-      <button class="p-2 text-gray-600 transition-colors hover:text-[#0a5c36]" aria-label="Cari">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    <!-- Right Button -->
+    <a href="../../report/form/index.html"
+      class="hidden lg:flex items-center gap-3 bg-[#d4ff1e] text-[#1a1a1a] px-1.5 py-1.5 pl-6 rounded-full font-bold text-[15px] hover:bg-[#c2eb1b] transition-colors shadow-sm">
+      Laporkan Masalah
+      <span class="flex items-center justify-center w-9 h-9 rounded-full bg-[#1a1a1a] text-white">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
         </svg>
-      </button>
-      <a href="#" class="flex h-11 items-center px-6 rounded-full bg-[#0a5c36] text-[14px] font-medium text-white shadow-sm transition-colors hover:bg-[#074226]">
-        Masuk
-      </a>
-    </div>
-    
+      </span>
+    </a>
+
     <!-- Mobile Menu Toggle -->
-    <button class="flex p-3 text-gray-600 transition-colors hover:text-[#0a5c36] lg:hidden" aria-label="Buka Menu">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+    <button id="mobileMenuBtn" class="lg:hidden p-2 text-[#222]">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="lg:hidden hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center gap-8 text-[#1a1a1a] font-semibold text-[20px]">
+    <button id="mobileMenuClose" class="absolute top-6 right-6 p-2">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
+    <a href="../../report/form/index.html" class="hover:text-gray-500 transition-colors">Laporkan</a>
+    <a href="../../report/see more report/index.html" class="hover:text-gray-500 transition-colors">Lihat Semua Laporan</a>
+    <a href="#" class="text-[#0a5c36] font-bold">Edukasi</a>
+    <a href="../../komunitas/event/index.html" class="hover:text-gray-500 transition-colors">Event Komunitas</a>
+    <a href="../../komunitas/see more event/index.html" class="hover:text-gray-500 transition-colors">Lihat Semua Event</a>
+    <a href="../../dashboard/home/index.html" class="hover:text-gray-500 transition-colors">Dashboard</a>
+  </div>
 
   <!-- Header Section -->
   <header class="w-full max-w-[1200px] mx-auto px-6 pt-8 pb-6 md:px-12 md:pt-10">
@@ -148,12 +187,12 @@
               </span>
             </div>
             <h3 class="mb-2 text-[18px] font-bold text-[#1a1a1a] leading-tight transition-colors hover:text-[#0a5c36]">
-              <a href="#">Dampak Sampah Plastik di Laut</a>
+              <a href="../detail-article/index.html">Dampak Sampah Plastik di Laut</a>
             </h3>
             <p class="mb-4 text-[14px] text-gray-600 leading-relaxed line-clamp-2">
               Temukan bagaimana mikroplastik merusak ekosistem laut Indonesia dan langkah pencegahannya secara mendalam untuk kelestarian laut kita.
             </p>
-            <a href="#" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
+            <a href="../detail-article/index.html" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
               Baca Selengkapnya 
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
@@ -178,12 +217,12 @@
               </span>
             </div>
             <h3 class="mb-2 text-[18px] font-bold text-[#1a1a1a] leading-tight transition-colors hover:text-[#0a5c36]">
-              <a href="#">Mengapa Banjir Sering Terjadi?</a>
+              <a href="../detail-article/banjir.html">Mengapa Banjir Sering Terjadi?</a>
             </h3>
             <p class="mb-4 text-[14px] text-gray-600 leading-relaxed line-clamp-2">
               Analisis mendalam mengenai sistem drainase kota, dampak penggundulan hutan di hulu sungai, serta solusi infrastruktur hijau masa depan.
             </p>
-            <a href="#" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
+            <a href="../detail-article/banjir.html" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
               Baca Selengkapnya 
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
@@ -208,12 +247,12 @@
               </span>
             </div>
             <h3 class="mb-2 text-[18px] font-bold text-[#1a1a1a] leading-tight transition-colors hover:text-[#0a5c36]">
-              <a href="#">Panduan Memilah Sampah Rumah Tangga</a>
+              <a href="../detail-article/memilah-sampah.html">Panduan Memilah Sampah Rumah Tangga</a>
             </h3>
             <p class="mb-4 text-[14px] text-gray-600 leading-relaxed line-clamp-2">
               Langkah sederhana memilah sampah dari dapur untuk mempermudah proses daur ulang dan mengurangi beban Tempat Pembuangan Akhir (TPA).
             </p>
-            <a href="#" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
+            <a href="../detail-article/memilah-sampah.html" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
               Baca Selengkapnya 
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
@@ -238,12 +277,12 @@
               </span>
             </div>
             <h3 class="mb-2 text-[18px] font-bold text-[#1a1a1a] leading-tight transition-colors hover:text-[#0a5c36]">
-              <a href="#">Pentingnya Menjaga Kualitas Air Tanah</a>
+              <a href="../detail-article/kualitas-air.html">Pentingnya Menjaga Kualitas Air Tanah</a>
             </h3>
             <p class="mb-4 text-[14px] text-gray-600 leading-relaxed line-clamp-2">
               Bagaimana cara sederhana menghemat air dan menjaga sumur resapan di rumah Anda agar ketersediaan air bersih tetap terjaga bagi generasi mendatang.
             </p>
-            <a href="#" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
+            <a href="../detail-article/kualitas-air.html" class="flex items-center gap-1 mt-auto self-start text-[13px] font-bold text-[#0a5c36] hover:underline md:self-start md:ml-auto">
               Baca Selengkapnya 
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
@@ -498,5 +537,22 @@
       </div>
   </footer>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // --- Mobile Menu Toggle logic ---
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const mobileMenuClose = document.getElementById("mobileMenuClose");
+
+      if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.remove("hidden");
+        });
+        mobileMenuClose.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      }
+    });
+  </script>
 </body>
 </html>
