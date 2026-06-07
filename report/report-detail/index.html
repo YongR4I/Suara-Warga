@@ -559,8 +559,39 @@
           lat: -6.5647, lng: 106.7869, supports: 89,
           images: ["https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?q=80&w=800&auto=format&fit=crop"]
         }
+              ,{
+          id: "grid-1", title: "Sampah Selokan", category: "Sampah",
+          timestamp: "2025-03-02T10:00:00.000Z",
+          address: "Bogor Ciomas",
+          description: "Genangan air mencapai 30 cm setiap hujan deras akibat selokan yang tersumbat total.",
+          lat: -6.6120, lng: 106.7720, supports: 102,
+          images: ["../../assets/images/landingpage/Sampah.png"]
+        },
+        {
+          id: "grid-2", title: "Banjir", category: "Infrastruktur",
+          timestamp: "2026-03-02T10:00:00.000Z",
+          address: "Bogor Ciomas",
+          description: "Genangan air mencapai 30 cm setiap hujan deras akibat selokan yang tersumbat total.",
+          lat: -6.6120, lng: 106.7720, supports: 85,
+          images: ["../../assets/images/landingpage/Banjirpng.png"]
+        },
+        {
+          id: "grid-3", title: "Jalanan Rusak", category: "Infrastruktur",
+          timestamp: "2026-03-02T10:00:00.000Z",
+          address: "Bogor Ciomas",
+          description: "Genangan air mencapai 30 cm setiap hujan deras akibat selokan yang tersumbat total.",
+          lat: -6.6120, lng: 106.7720, supports: 45,
+          images: ["../../assets/images/landingpage/Jalan Rusak.png"]
+        },
+        {
+          id: "grid-4", title: "Fasilitas Publik", category: "Fasilitas Publik",
+          timestamp: "2026-03-04T10:00:00.000Z",
+          address: "Bogor Ciomas",
+          description: "Fasilitas umum taman kota rusak parah dan tidak terawat sejak bulan lalu.",
+          lat: -6.6120, lng: 106.7720, supports: 15,
+          images: ["../../assets/images/landingpage/fasilitaspublik.png"]
+        }
       ];
-
       // Restore persisted dummy report like counts
       const savedDummySupports = JSON.parse(localStorage.getItem('suaraWargaDummySupports') || '{}');
       dummyReports.forEach(r => {
