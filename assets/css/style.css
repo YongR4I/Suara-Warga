@@ -188,21 +188,12 @@ nav, nav * {
    4. MARQUEE ANIMATION (SECTION 5)
    ========================================================================== */
 
-@keyframes marquee-scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-.animate-marquee {
+.marquee-container {
     display: flex;
     width: max-content;
-    animation: marquee-scroll 40s linear infinite;
+    will-change: transform;
 }
 
-.animate-marquee:hover {
-    animation-play-state: paused;
+.marquee-wrapper {
+    overflow: hidden;
 }
