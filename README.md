@@ -58,49 +58,73 @@ Suara Warga hadir untuk menjembatani kesenjangan tersebut dengan menyediakan pla
 
 ## Dokumentasi Tampilan Aplikasi
 
-Berikut adalah dokumentasi visual dari platform **Suara Warga**, yang mencakup sistem pelaporan, transparansi status, edukasi, dan aksi sosial komunitas:
+Berikut adalah dokumentasi visual dari platform **Suara Warga** yang dikelompokkan berdasarkan kategori modul fitur utama:
 
-### Halaman Utama & Formulir Laporan
+### Landing Page
+Halaman perkenalan utama platform yang menyajikan informasi awal bagi warga mengenai pentingnya kesadaran lingkungan dan cara kerja platform.
+
 <p align="center">
-  <img src="assets/images/dokumentasi/dokumentasi-1.jpg" width="49%" alt="Landing Page - Hero Section" />
-  <img src="assets/images/dokumentasi/dokumentasi-2.jpg" width="49%" alt="Formulir Pelaporan Masalah Lingkungan" />
+  <img src="assets/images/dokumentasi/dokumentasi-1.jpg" width="49%" alt="Hero Section - Beranda" />
+  <img src="assets/images/dokumentasi/landingpage 2.jpg" width="49%" alt="Statistik & Dampak Masalah" />
 </p>
 
-* **1. Halaman Utama (Landing Page / Hero Section)**: Pintu gerbang utama platform yang menyajikan pesan kampanye *"Dari Laporan Menjadi Perubahan"* serta navigasi cepat untuk mengakses seluruh fitur utama.
-* **2. Formulir Pelaporan Warga**: Fitur interaktif yang mempermudah warga untuk mengirimkan laporan masalah lingkungan dengan melampirkan foto bukti, titik lokasi/koordinat, kategori masalah, dan deskripsi kondisi di lapangan.
+<p align="center">
+  <img src="assets/images/dokumentasi/landingpage 3.jpg" width="49%" alt="Alur Penggunaan Aplikasi" />
+  <img src="assets/images/dokumentasi/landingpage 4.jpg" width="49%" alt="Footer & Tautan Navigasi" />
+</p>
+
+* **Hero Section (Gambar 1)**: Tampilan pembuka yang menyajikan pesan ajakan *"Dari Laporan Menjadi Perubahan"* serta navigasi cepat menuju fitur pelaporan.
+* **Fitur & Dampak Lingkungan (Gambar 2)**: Bagian yang menjelaskan tiga pilar layanan utama (Pelaporan, Edukasi, dan Komunitas) serta urgensi kepedulian lingkungan.
+* **Alur Cara Kerja Platform (Gambar 3)**: Panduan langkah-langkah bagi masyarakat mulai dari membuat laporan, validasi laporan, hingga aksi penyelesaian.
+* **Informasi Kontak & Footer (Gambar 4)**: Tautan cepat navigasi web, info media sosial, serta penutup halaman utama.
 
 ---
 
-### Transparansi & Detail Laporan
+### Report (Sistem Pelaporan)
+Modul utama untuk mempermudah warga dalam melaporkan isu lingkungan serta melihat transparansi status penanganannya secara terbuka.
+
 <p align="center">
+  <img src="assets/images/dokumentasi/dokumentasi-2.jpg" width="49%" alt="Formulir Pelaporan" />
   <img src="assets/images/dokumentasi/dokumentasi-3.jpg" width="49%" alt="Daftar Laporan Warga" />
-  <img src="assets/images/dokumentasi/dokumentasi-4.jpg" width="49%" alt="Detail Laporan Lingkungan" />
 </p>
 
-* **3. Daftar Laporan Warga**: Halaman dasbor sosial yang menampilkan seluruh laporan masalah lingkungan dari masyarakat secara transparan, memungkinkan warga lain memberikan dukungan (*upvote*) dan memantau perkembangan penanganannya.
-* **4. Detail Laporan Warga**: Halaman rincian dari suatu laporan yang mencakup deskripsi lengkap, visualisasi foto bukti lapangan, peta koordinat lokasi yang presisi, serta riwayat perubahan status penanganan (Diterima, Diproses, Selesai).
+<p align="center">
+  <img src="assets/images/dokumentasi/dokumentasi-4.jpg" width="80%" alt="Detail Laporan Lingkungan" />
+</p>
+
+* **Formulir Pelaporan Warga (Gambar 1)**: Antarmuka pengisian laporan terstruktur yang mewajibkan unggah bukti foto fisik, penentuan titik lokasi peta, kategori masalah, dan penjelasan detail kondisi lapangan.
+* **Daftar Laporan Warga (Gambar 2)**: Dasbor sosial interaktif yang menampilkan daftar laporan masuk dari masyarakat sekitar agar sesama warga dapat saling mendukung (*upvote*) dan memantau perkembangannya.
+* **Detail Laporan Warga (Gambar 3)**: Halaman rincian lengkap untuk tiap laporan yang mencakup status pengerjaan (Diterima, Diproses, Selesai), peta koordinat presisi, serta komentar dan riwayat perkembangan laporan.
 
 ---
 
-### Pusat Edukasi Lingkungan (Environmental Education)
+### Edukasi (Environmental Education)
+Pusat informasi dan media pembelajaran untuk meningkatkan kepedulian masyarakat terhadap masalah lingkungan di kehidupan sehari-hari.
+
 <p align="center">
   <img src="assets/images/dokumentasi/dokumentasi-5.jpg" width="49%" alt="Artikel Edukasi" />
   <img src="assets/images/dokumentasi/dokumentasi-6.jpg" width="49%" alt="Video Edukasi" />
 </p>
 
-* **5. Edukasi Artikel**: Ruang edukasi yang berisi kumpulan artikel informatif dan fakta-fakta penting seputar isu lingkungan guna membangun kesadaran kritis masyarakat.
-* **6. Video Edukasi**: Media edukasi berbasis video interaktif untuk memberikan pengalaman belajar yang lebih menarik, visual, dan mudah dipahami oleh semua kalangan pengguna.
+<p align="center">
+  <img src="assets/images/dokumentasi/dokumentasi-7.jpg" width="80%" alt="Tips Lingkungan" />
+</p>
+
+* **Edukasi Artikel (Gambar 1)**: Kumpulan artikel menarik dan fakta-fakta singkat seputar ancaman pencemaran lingkungan untuk mengedukasi warga.
+* **Video Edukasi (Gambar 2)**: Media pembelajaran berbasis audio-visual berupa video interaktif yang memudahkan penyampaian pesan ekologis.
+* **Tips Peduli Lingkungan (Gambar 3)**: Panduan praktis berisi tips dan kebiasaan baik sederhana sehari-hari yang dapat dilakukan warga secara mandiri untuk menjaga bumi.
 
 ---
 
-### Tips Interaktif & Aksi Komunitas (Community Action)
+### Komunitas (Community Action)
+Wadah interaksi dan kolaborasi nyata antara masyarakat dan komunitas lingkungan setempat.
+
 <p align="center">
-  <img src="assets/images/dokumentasi/dokumentasi-7.jpg" width="49%" alt="Tips Lingkungan" />
-  <img src="assets/images/dokumentasi/dokumentasi-8.jpg" width="49%" alt="Aksi Komunitas" />
+  <img src="assets/images/dokumentasi/dokumentasi-8.jpg" width="80%" alt="Aksi Komunitas" />
 </p>
 
-* **7. Tips Peduli Lingkungan**: Kumpulan saran taktis dan kiat ramah lingkungan sederhana yang dapat diimplementasikan dalam kehidupan sehari-hari oleh warga.
-* **8. Aksi Komunitas (Community Action)**: Halaman kolaborasi untuk merencanakan dan bergabung ke aksi nyata di lapangan, seperti kerja bakti, penanaman pohon, atau gotong royong pembersihan fasilitas umum.
+* **Aksi Komunitas (Gambar 1)**: Halaman yang berisi agenda kegiatan sosial lingkungan (seperti kerja bakti gotong royong, aksi bersih sungai, dan penanaman pohon) di mana warga dapat berpartisipasi langsung menjadi relawan.
+
 
 
 ## Ketentuan Penggunaan / Hak Cipta
