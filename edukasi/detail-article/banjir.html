@@ -53,17 +53,7 @@
         <a href="../../komunitas/event/index.html" class="hover:text-gray-500 transition-colors">Komunitas</a>
     </div>
 
-    <!-- Right Button / CTA -->
-    <div class="hidden lg:flex items-center gap-6">
-      <button class="p-2 text-[#222] hover:text-gray-500 transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
-      <a href="#" class="bg-brand text-white px-6 py-2.5 rounded-full font-bold text-[14px] hover:bg-brandDark transition-colors">
-        Masuk
-      </a>
-    </div>
+    
 
     <!-- Mobile Menu Toggle -->
     <button id="mobileMenuBtn" class="lg:hidden p-2 text-[#222]">
@@ -74,27 +64,75 @@
   </nav>
 
   <!-- Mobile Menu -->
-  <div id="mobileMenu" class="lg:hidden hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center gap-8 text-[#1a1a1a] font-semibold text-[20px]">
-    <button id="mobileMenuClose" class="absolute top-6 right-6 p-2">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
-    
-    
-    
-    <a href="../../index.html" class="hover:text-gray-500 transition-colors">Beranda</a>
-    <a href="../../report/form/index.html" class="hover:text-gray-500 transition-colors">Lapor</a>
-    <a href="../../report/see-more-report/index.html" class="hover:text-gray-500 transition-colors">Lihat Laporan</a>
-    <a href="../../edukasi/home/index.html" class="text-[#0a5c36] font-bold">Edukasi</a>
-    <a href="../../komunitas/event/index.html" class="hover:text-gray-500 transition-colors">Komunitas</a>
-    <a href="#"
-      class="bg-brand text-white px-6 py-2.5 rounded-full font-bold text-[14px] hover:bg-brandDark transition-colors">
-      Masuk
-    </a>
-  
-  
-  
+  <div id="mobileMenu" class="lg:hidden hidden fixed inset-0 z-50 bg-[#062612]/30 backdrop-blur-md animate-fade-in">
+    <style>
+      @keyframes slideIn {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .animate-slide-in {
+        animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+    </style>
+    <div class="absolute inset-y-0 right-0 w-full max-w-[360px] bg-white shadow-2xl flex flex-col justify-between p-8 text-[#1a1a1a] animate-slide-in">
+      <!-- Top Section -->
+      <div class="flex items-center justify-between pb-6 border-b border-gray-100">
+        <div class="flex items-center gap-2">
+          <span class="font-sans font-bold text-[18px] tracking-tight text-[#222]">Suara Warga</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#0a5c36]"></span>
+        </div>
+        <button id="mobileMenuClose" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-555 hover:text-[#0a5c36] hover:border-[#0a5c36] transition-colors cursor-pointer" aria-label="Close menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Links Section -->
+      <div class="flex flex-col gap-6 my-auto">
+        <a href="../../index.html" class="flex items-baseline gap-4 group decoration-none">
+          <span class="font-mono text-xs text-[#0a5c36]/50 group-hover:text-[#0a5c36] transition-colors">01</span>
+          <span class="text-3xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#0a5c36] transition-colors">Beranda</span>
+        </a>
+        <a href="../../report/form/index.html" class="flex items-baseline gap-4 group decoration-none">
+          <span class="font-mono text-xs text-[#0a5c36]/50 group-hover:text-[#0a5c36] transition-colors">02</span>
+          <span class="text-3xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#0a5c36] transition-colors">Lapor</span>
+        </a>
+        <a href="../../report/see-more-report/index.html" class="flex items-baseline gap-4 group decoration-none">
+          <span class="font-mono text-xs text-[#0a5c36]/50 group-hover:text-[#0a5c36] transition-colors">03</span>
+          <span class="text-3xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#0a5c36] transition-colors">Lihat Laporan</span>
+        </a>
+        <a href="../../edukasi/home/index.html" class="flex items-baseline gap-4 group decoration-none">
+          <span class="font-mono text-xs text-[#0a5c36]/50 group-hover:text-[#0a5c36] transition-colors">04</span>
+          <span class="text-3xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#0a5c36] transition-colors">Edukasi</span>
+        </a>
+        <a href="../../komunitas/event/index.html" class="flex items-baseline gap-4 group decoration-none">
+          <span class="font-mono text-xs text-[#0a5c36]/50 group-hover:text-[#0a5c36] transition-colors">05</span>
+          <span class="text-3xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#0a5c36] transition-colors">Komunitas</span>
+        </a>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="flex flex-col gap-6 pt-6 border-t border-gray-100">
+        <a href="../../report/form/index.html" class="w-full bg-[#d4ff1e] text-[#1a1a1a] py-3.5 rounded-full font-bold text-sm text-center hover:bg-[#c2eb1b] transition-colors shadow-sm block decoration-none">
+          Laporkan Masalah
+        </a>
+        <div class="flex items-center justify-between text-xs text-gray-400">
+          <span>&copy; 2026 Suara Warga</span>
+          <div class="flex gap-3">
+            <a href="#" class="hover:text-black transition-colors decoration-none">Instagram</a>
+            <a href="#" class="hover:text-black transition-colors decoration-none">Twitter</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Main Content -->

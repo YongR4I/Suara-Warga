@@ -298,6 +298,81 @@ const articles = [
       }
     ],
     tags: ['#DaurUlang', '#ZeroWaste', '#Lingkungan', '#SuaraWarga']
+  },
+  {
+    id: 'mangrove',
+    title: 'Mengapa Mangrove Adalah Benteng Masa Depan Kita?',
+    category: 'KONSERVASI',
+    categoryColor: 'bg-[#e8f3ee] text-[#0a5c36]',
+    date: '10 Jun 2026',
+    readTime: '6 Menit Baca',
+    views: '1.8k Kali Dilihat',
+    image: '../../assets/images/landingpage/mangrove.webp',
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Mangrove atau hutan bakau bukan sekadar pepohonan yang tumbuh subur di perairan payau pesisir pantai. Bagi Indonesia, negara kepulauan dengan garis pantai terpanjang kedua di dunia, ekosistem mangrove adalah benteng pelindung alami yang tak tergantikan. Keberadaannya memegang peran krusial dalam menyeimbangkan ekosistem daratan dan lautan, sekaligus melindungi pemukiman warga pesisir dari berbagai ancaman bencana alam.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Meskipun manfaatnya sangat nyata, hutan mangrove terus mengalami tekanan akibat konversi lahan menjadi tambak udang, perluasan area industri, dan pemukiman pesisir. Degradasi ini tidak hanya merusak habitat alami berbagai biota laut, tetapi juga menghilangkan perlindungan alami kita dari ancaman erosi pantai dan terjangan badai.'
+      },
+      {
+        type: 'heading',
+        text: 'Penyerap Karbon dan Produsen Oksigen Raksasa'
+      },
+      {
+        type: 'paragraph',
+        text: 'Salah satu keistimewaan hutan mangrove yang paling disorot dalam isu perubahan iklim global adalah kemampuannya yang luar biasa dalam menyerap karbon dioksida. Hutan mangrove tergolong sebagai penyimpan karbon biru (blue carbon) yang sangat efisien. Mereka mampu menyerap dan menyimpan karbon hingga 4-10 kali lebih banyak dibandingkan hutan tropis daratan per hektar.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Karbon tersebut disimpan dalam waktu lama di dalam tanah gambut dan sedimen di bawah akar bakau yang minim oksigen, sehingga tidak mudah lepas kembali ke atmosfer. Melestarikan mangrove berarti menjaga cadangan karbon ini tetap tersimpan aman di bawah tanah, alih-alih lepas dan memperparah pemanasan global.'
+      },
+      {
+        type: 'quote',
+        text: '"Mangrove adalah pelindung senyap. Di bawah akarnya yang rumit, tersembunyi kunci ketahanan pesisir dan solusi mitigasi krisis iklim global."'
+      },
+      {
+        type: 'heading',
+        text: 'Mencegah Abrasi dan Mengurangi Dampak Tsunami'
+      },
+      {
+        type: 'paragraph',
+        text: 'Akar napas mangrove yang rapat dan rumit berfungsi sebagai pemecah gelombang alami. Ketika ombak besar menghantam pesisir, rapatnya jalinan akar mangrove akan meredam energi gelombang tersebut, mengurangi kecepatan aliran air, dan menahan sedimen lumpur agar tidak hanyut tersapu abrasi.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Dalam beberapa kejadian bencana tsunami di Indonesia, pemukiman pesisir yang terlindungi oleh sabuk hijau (greenbelt) mangrove yang sehat mengalami tingkat kerusakan yang jauh lebih rendah dibandingkan area tanpa pelindung. Batang dan akar bakau yang kokoh mampu mengurangi daya hantam tsunami secara signifikan sebelum air mencapai daratan.'
+      },
+      {
+        type: 'image',
+        src: '../../assets/images/landingpage/mangrove.webp',
+        caption: 'Hutan mangrove yang lebat menjadi pertahanan garis pertama pesisir pantai Indonesia.'
+      },
+      {
+        type: 'heading',
+        text: 'Aksi Nyata yang Dapat Kita Lakukan'
+      },
+      {
+        type: 'paragraph',
+        text: 'Melindungi benteng masa depan kita ini membutuhkan kontribusi aktif dari seluruh elemen masyarakat. Kita tidak bisa hanya mengandalkan program pemerintah, melainkan perlu memulai langkah nyata dari kesadaran individu dan komunitas lokal.'
+      },
+      {
+        type: 'paragraph',
+        text: 'Berikut adalah beberapa tindakan sederhana namun berdampak besar yang dapat kita lakukan bersama untuk melestarikan ekosistem mangrove di sekitar kita:'
+      },
+      {
+        type: 'list',
+        items: [
+          'Berpartisipasi aktif dalam kegiatan penanaman bibit mangrove bersama komunitas relawan lokal.',
+          'Mendukung program ekowisata mangrove yang dikelola secara berkelanjutan oleh masyarakat setempat.',
+          'Mengurangi penggunaan plastik sekali pakai agar sampah tidak bermuara ke pesisir dan menimbun akar mangrove.',
+          'Menyebarkan edukasi tentang pentingnya ekosistem pesisir melalui media sosial atau platform digital.'
+        ]
+      }
+    ],
+    tags: ['#KonservasiMangrove', '#BlueCarbon', '#KetahananPesisir', '#SuaraWarga']
   }
 ];
 
@@ -367,6 +442,7 @@ function getArticleId() {
     if (pathname.includes('kualitas-air')) return 'kualitas-air';
     if (pathname.includes('banjir')) return 'banjir';
     if (pathname.includes('memilah-sampah')) return 'memilah-sampah';
+    if (pathname.includes('mangrove')) return 'mangrove';
     return 'dampak-sampah-plastik'; // default to index.html (dampak sampah plastik)
   }
   return id;
